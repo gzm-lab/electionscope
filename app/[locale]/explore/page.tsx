@@ -202,12 +202,15 @@ export default function ExplorePage() {
           {loading && (
             <div className="flex items-center gap-1.5 text-xs text-gray-500">
               <div className="w-3 h-3 border border-blue-500 border-t-transparent rounded-full animate-spin" />
-              <span className="hidden sm:inline">Chargement…</span>
             </div>
           )}
+          {/* Contexte année/tour visible sur mobile */}
+          <span className="md:hidden text-xs text-gray-500 font-medium">
+            {selectedYear} · T{selectedTour}
+          </span>
           <button
             onClick={() => setShowTimeline((v) => !v)}
-            className={`glass rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 ${
+            className={`glass rounded-lg px-2 md:px-2.5 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 ${
               showTimeline ? "text-white bg-white/10 ring-1 ring-white/20" : "text-gray-300 hover:text-white"
             }`}
           >
@@ -272,34 +275,10 @@ export default function ExplorePage() {
 
         {/* ── Content area ──────────────────────────────────────── */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-          {/* Header strip */}
-          <div className="px-3 md:px-4 py-2 flex items-center gap-2 md:gap-3 shrink-0 border-b border-white/5">
-            <div className="flex items-center gap-1.5 min-w-0">
-              <span className="text-sm font-bold text-white truncate">
-                Présidentielle {selectedYear}
-              </span>
-              <span className="text-gray-500 text-sm shrink-0">
-                · {selectedTour === 1 ? "T1" : "T2"}
-              </span>
-            </div>
-            {mapMode === "candidate" && selectedCandidate && (
-              <div className="flex items-center gap-1.5 text-sm min-w-0">
-                <span className="text-gray-500 shrink-0">·</span>
-                <span className="text-gray-300 truncate">{selectedCandidate}</span>
-              </div>
-            )}
-            {mapMode === "winner" && (
-              <div className="hidden sm:flex items-center gap-1.5 text-sm">
-                <span className="text-gray-500">·</span>
-                <span className="text-gray-400">Carte des gagnants</span>
-              </div>
-            )}
-          </div>
-
           {/* Map + Scatter split */}
           <div className="flex-1 flex flex-col overflow-hidden p-2 md:p-3 gap-2 md:gap-3">
             {/* Map */}
-            <div className="flex-1 min-h-0 relative" style={{ minHeight: 220 }}>
+            <div className="flex-1 min-h-0 relative" style={{ minHeight: 280 }}>
               <ElectionMap
                 results={results}
                 selectedCandidate={selectedCandidate}
@@ -314,7 +293,7 @@ export default function ExplorePage() {
               {indicator !== "none" && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 200 }}
+                  animate={{ opacity: 1, height: typeof window !== "undefined" && window.innerWidth < 768 ? 160 : 200 }}
                   exit={{ opacity: 0, height: 0 }}
                   className="glass rounded-xl overflow-hidden shrink-0"
                 >
@@ -348,7 +327,7 @@ export default function ExplorePage() {
         {showTimeline && index && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 260, opacity: 1 }}
+            animate={{ height: typeof window !== "undefined" && window.innerWidth < 768 ? 200 : 260, opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 30 }}
             className="shrink-0 border-t border-white/5 glass overflow-hidden"

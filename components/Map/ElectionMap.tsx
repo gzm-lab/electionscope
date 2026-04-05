@@ -50,7 +50,7 @@ export default function ElectionMap({
           glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
         },
         center: [2.3, 46.5],
-        zoom: 4.8,
+        zoom: typeof window !== "undefined" && window.innerWidth < 768 ? 4.0 : 4.8,
         attributionControl: false,
         pitchWithRotate: false,
         dragRotate: false,
