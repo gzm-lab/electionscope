@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "title": "ElectionScope",
+    "subtitle": "60 years of French presidential elections",
+    "description": "Explore, compare, understand. Cross electoral results with socioeconomic data, commune by commune.",
+    "cta": "Explore the data",
+    "stats": {
+      "elections": "11 elections",
+      "years": "1965 – 2022",
+      "communes": "35,000 communes"
+    }
+  },
+  "nav": {
+    "explore": "Explore",
+    "about": "About"
+  },
+  "explore": {
+    "title": "Electoral map",
+    "yearLabel": "Election",
+    "tourLabel": "Round",
+    "tour1": "Round 1",
+    "tour2": "Round 2",
+    "candidateLabel": "Candidate",
+    "indicatorLabel": "Socio-economic indicator",
+    "indicators": {
+      "none": "None",
+      "revenue": "Median income",
+      "unemployment": "Unemployment rate",
+      "poverty": "Poverty rate"
+    },
+    "mapTitle": "Results by département",
+    "scatterTitle": "Socioeconomic correlation",
+    "correlation": "Pearson correlation",
+    "turnout": "Turnout",
+    "votes": "Votes",
+    "tooltip": {
+      "candidate": "Candidate",
+      "score": "Score",
+      "participation": "Turnout"
+    }
+  },
+  "footer": {
+    "sources": "Sources",
+    "sourcesText": "Ministry of Interior, INSEE, data.gouv.fr",
+    "madeWith": "Made with ❤️ and open data"
+  }
+}

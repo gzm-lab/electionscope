@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "title": "ElectionScope",
+    "subtitle": "60 ans d'élections présidentielles françaises",
+    "description": "Explorez, comparez, comprenez. Croisez résultats électoraux et données socio-économiques, commune par commune.",
+    "cta": "Explorer les données",
+    "stats": {
+      "elections": "11 élections",
+      "years": "1965 – 2022",
+      "communes": "35 000 communes"
+    }
+  },
+  "nav": {
+    "explore": "Explorer",
+    "about": "À propos"
+  },
+  "explore": {
+    "title": "Carte électorale",
+    "yearLabel": "Élection",
+    "tourLabel": "Tour",
+    "tour1": "1er tour",
+    "tour2": "2ème tour",
+    "candidateLabel": "Candidat",
+    "indicatorLabel": "Indicateur socio-éco",
+    "indicators": {
+      "none": "Aucun",
+      "revenue": "Revenu médian",
+      "unemployment": "Taux de chômage",
+      "poverty": "Taux de pauvreté"
+    },
+    "mapTitle": "Résultats par département",
+    "scatterTitle": "Corrélation socio-économique",
+    "correlation": "Corrélation de Pearson",
+    "turnout": "Participation",
+    "votes": "Voix",
+    "tooltip": {
+      "candidate": "Candidat",
+      "score": "Score",
+      "participation": "Participation"
+    }
+  },
+  "footer": {
+    "sources": "Sources",
+    "sourcesText": "Ministère de l'Intérieur, INSEE, data.gouv.fr",
+    "madeWith": "Fait avec ❤️ et des données ouvertes"
+  }
+}
