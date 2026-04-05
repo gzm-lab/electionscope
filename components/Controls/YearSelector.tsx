@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
-import { ELECTIONS } from "@/lib/elections";
+
+const YEARS = [1965, 1969, 1974, 1981, 1988, 1995, 2002, 2007, 2012, 2017, 2022];
 
 interface YearSelectorProps {
   selectedYear: number;
@@ -10,27 +10,25 @@ interface YearSelectorProps {
 }
 
 export default function YearSelector({ selectedYear, onYearChange }: YearSelectorProps) {
-  const t = useTranslations("explore");
-
   return (
     <div>
       <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
-        {t("yearLabel")}
+        Élection
       </label>
       <div className="grid grid-cols-3 gap-1.5">
-        {ELECTIONS.map((election) => (
+        {YEARS.map((year) => (
           <motion.button
-            key={election.year}
+            key={year}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => onYearChange(election.year)}
-            className={`px-2 py-2 rounded-lg text-sm font-semibold transition-all ${
-              selectedYear === election.year
-                ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
+            onClick={() => onYearChange(year)}
+            className={`px-2 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              selectedYear === year
+                ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
                 : "glass text-gray-400 hover:text-white hover:bg-white/5"
             }`}
           >
-            {election.year}
+            {year}
           </motion.button>
         ))}
       </div>

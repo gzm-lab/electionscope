@@ -43,6 +43,12 @@ export default function HomePage() {
             >
               {nt("explore")}
             </Link>
+            <Link
+              href={`/${locale}/about`}
+              className="text-sm text-gray-400 hover:text-white transition-colors"
+            >
+              {nt("about")}
+            </Link>
             <LanguageSwitcher />
           </motion.div>
         </div>

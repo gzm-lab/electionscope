@@ -1,250 +1,364 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
-import { useTranslations, useLocale } from "next-intl";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 
 import YearSelector from "@/components/Controls/YearSelector";
 import TourSelector from "@/components/Controls/TourSelector";
 import CandidateSelector from "@/components/Controls/CandidateSelector";
 import IndicatorSelector, { Indicator } from "@/components/Controls/IndicatorSelector";
 import LanguageSwitcher from "@/components/UI/LanguageSwitcher";
-import GlassPanel from "@/components/UI/GlassPanel";
+import NationalResults from "@/components/Charts/NationalResults";
+import DeptPanel from "@/components/Map/DeptPanel";
 
-import { ELECTIONS, getElection } from "@/lib/elections";
-import { generateMockResults } from "@/lib/mockData";
+import {
+  loadElectionResults,
+  loadIndex,
+  DeptResult,
+  ElectionIndex,
+} from "@/lib/electionData";
 
-// Dynamic import for map (no SSR — maplibre needs browser)
 const ElectionMap = dynamic(() => import("@/components/Map/ElectionMap"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center bg-[#0a0a0f] rounded-xl">
-      <div className="text-center">
-        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-gray-400 text-sm">Chargement de la carte…</p>
-      </div>
+      <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
     </div>
   ),
 });
 
-// Dynamic import for scatter plot (uses D3 + browser)
 const ScatterPlot = dynamic(() => import("@/components/Charts/ScatterPlot"), {
   ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="shimmer w-full h-full rounded-lg" />
-    </div>
-  ),
+  loading: () => <div className="w-full h-full shimmer rounded-lg" />,
+});
+
+const TimelineChart = dynamic(() => import("@/components/Charts/TimelineChart"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full shimmer rounded-lg" />,
 });
 
 export default function ExplorePage() {
-  const t = useTranslations("explore");
   const locale = useLocale();
 
+  // Election state
+  const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedTour, setSelectedTour] = useState<1 | 2>(1);
+  const [results, setResults] = useState<DeptResult[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Map state
+  const [mapMode, setMapMode] = useState<"candidate" | "winner">("winner");
+  const [selectedCandidate, setSelectedCandidate] = useState<string | null>(null);
+  const [selectedDept, setSelectedDept] = useState<DeptResult | null>(null);
+
+  // Socioeco
+  const [socioeco, setSocioeco] = useState<Record<string, { revenue: number; unemployment: number; poverty: number }>>({});
   const [indicator, setIndicator] = useState<Indicator>("none");
 
-  const election = getElection(selectedYear);
-  const candidates = election?.candidates ?? [];
+  // UI
+  const [sidebarTab, setSidebarTab] = useState<"controls" | "results">("controls");
+  const [showTimeline, setShowTimeline] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const [selectedCandidateId, setSelectedCandidateId] = useState(
-    () => ELECTIONS[ELECTIONS.length - 1].candidates[0].id
-  );
+  // Load index once
+  useEffect(() => {
+    loadIndex().then(setIndex);
+    fetch("/data/socioeco.json").then(r => r.json()).then(setSocioeco);
+  }, []);
 
-  // Reset candidate when year changes
-  const handleYearChange = (year: number) => {
-    setSelectedYear(year);
-    const newElection = getElection(year);
-    if (newElection && !newElection.candidates.find((c) => c.id === selectedCandidateId)) {
-      setSelectedCandidateId(newElection.candidates[0].id);
+  // Candidates for selected year/tour
+  const candidates = useMemo(() => {
+    if (!index) return [];
+    const election = index.elections.find((e) => e.year === selectedYear);
+    if (!election) return [];
+    return selectedTour === 1 ? election.candidates_t1 : election.candidates_t2;
+  }, [index, selectedYear, selectedTour]);
+
+  // Load results when year/tour changes
+  useEffect(() => {
+    setLoading(true);
+    loadElectionResults(selectedYear, selectedTour).then((data) => {
+      setResults(data);
+      setLoading(false);
+    });
+    setSelectedDept(null);
+  }, [selectedYear, selectedTour]);
+
+  // Auto-select first candidate when candidates change
+  useEffect(() => {
+    if (candidates.length > 0 && (!selectedCandidate || !candidates.includes(selectedCandidate))) {
+      setSelectedCandidate(candidates[0]);
     }
-  };
+  }, [candidates]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const selectedCandidate = useMemo(
-    () => candidates.find((c) => c.id === selectedCandidateId) ?? candidates[0],
-    [candidates, selectedCandidateId]
+  const handleYearChange = useCallback((year: number) => {
+    setSelectedYear(year);
+  }, []);
+
+  const handleTourChange = useCallback((tour: 1 | 2) => {
+    setSelectedTour(tour);
+  }, []);
+
+  const handleSelectCandidate = useCallback((name: string) => {
+    setSelectedCandidate(name);
+    setMapMode("candidate");
+    setDrawerOpen(false);
+  }, []);
+
+  const handleWinnerMode = useCallback(() => {
+    setMapMode("winner");
+    setSelectedCandidate(null);
+  }, []);
+
+  // Map effective candidate (for scatter + legends)
+  const effectiveCandidate = mapMode === "candidate" ? selectedCandidate : (candidates[0] ?? null);
+
+  // Sidebar content (shared between desktop aside and mobile drawer)
+  const sidebarContent = (
+    <>
+      <div className="flex border-b border-white/5 shrink-0">
+        {(["controls", "results"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setSidebarTab(tab)}
+            className={`flex-1 py-2.5 text-xs font-semibold transition-colors ${
+              sidebarTab === tab ? "text-white border-b-2 border-blue-500" : "text-gray-500 hover:text-gray-300"
+            }`}
+          >
+            {tab === "controls" ? "🎛️ Contrôles" : "📊 Résultats"}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex-1 overflow-y-auto">
+        {sidebarTab === "controls" ? (
+          <div className="p-3 space-y-4">
+            <div className="glass rounded-xl p-3">
+              <YearSelector selectedYear={selectedYear} onYearChange={handleYearChange} />
+            </div>
+            <div className="glass rounded-xl p-3">
+              <TourSelector selected={selectedTour} onSelect={handleTourChange} />
+            </div>
+            <div className="glass rounded-xl p-3">
+              <CandidateSelector
+                candidates={candidates}
+                selectedId={selectedCandidate}
+                mapMode={mapMode}
+                onSelect={handleSelectCandidate}
+                onWinnerMode={handleWinnerMode}
+              />
+            </div>
+            <div className="glass rounded-xl p-3">
+              <IndicatorSelector selected={indicator} onSelect={setIndicator} />
+            </div>
+          </div>
+        ) : (
+          <div className="p-3">
+            <div className="mb-3">
+              <div className="text-xs text-gray-500 uppercase tracking-wider font-medium mb-1">
+                Résultats nationaux
+              </div>
+              <div className="text-xs text-gray-600">
+                Présidentielle {selectedYear} · {selectedTour === 1 ? "1er tour" : "2ème tour"}
+              </div>
+            </div>
+            <NationalResults
+              results={results}
+              selectedCandidate={selectedCandidate}
+              onSelectCandidate={handleSelectCandidate}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
-
-  const results = useMemo(
-    () =>
-      generateMockResults(
-        selectedYear,
-        selectedTour,
-        candidates.map((c) => c.id)
-      ),
-    [selectedYear, selectedTour, candidates]
-  );
-
-  const topDepts = useMemo(() => {
-    if (!selectedCandidate) return [];
-    return [...results]
-      .sort(
-        (a, b) =>
-          (b.candidates[selectedCandidate.id] ?? 0) - (a.candidates[selectedCandidate.id] ?? 0)
-      )
-      .slice(0, 5);
-  }, [results, selectedCandidate]);
-
-  const avgScore = useMemo(() => {
-    if (!selectedCandidate) return 0;
-    const scores = results.map((r) => r.candidates[selectedCandidate.id] ?? 0);
-    return scores.reduce((a, b) => a + b, 0) / scores.length;
-  }, [results, selectedCandidate]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex flex-col">
-      {/* Top navbar */}
-      <nav className="glass border-b border-white/5 px-6 py-3 flex items-center justify-between shrink-0">
-        <Link href={`/${locale}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="text-lg font-black gradient-text">ElectionScope</span>
-        </Link>
-        <div className="flex items-center gap-4">
-          <div className="text-xs text-gray-500 hidden md:block">
-            Données : Ministère de l'Intérieur · INSEE · data.gouv.fr
-          </div>
+    <div className="h-screen bg-[#0a0a0f] flex flex-col overflow-hidden">
+      {/* Navbar */}
+      <nav className="glass border-b border-white/5 px-3 md:px-4 py-2.5 flex items-center justify-between shrink-0 z-40">
+        <div className="flex items-center gap-2">
+          {/* Mobile drawer toggle */}
+          <button
+            className="md:hidden glass rounded-lg p-1.5 text-gray-400 hover:text-white transition-colors"
+            onClick={() => setDrawerOpen((v) => !v)}
+            aria-label="Contrôles"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <Link href={`/${locale}`} className="hover:opacity-80 transition-opacity">
+            <span className="text-base font-black gradient-text">ElectionScope</span>
+          </Link>
+        </div>
+        <div className="flex items-center gap-2 md:gap-4">
+          {loading && (
+            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div className="w-3 h-3 border border-blue-500 border-t-transparent rounded-full animate-spin" />
+              <span className="hidden sm:inline">Chargement…</span>
+            </div>
+          )}
+          <button
+            onClick={() => setShowTimeline((v) => !v)}
+            className={`glass rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 ${
+              showTimeline ? "text-white bg-white/10 ring-1 ring-white/20" : "text-gray-300 hover:text-white"
+            }`}
+          >
+            <span>📈</span>
+            <span className="hidden md:inline">Timeline</span>
+          </button>
+          <span className="text-xs text-gray-600 hidden lg:block">Ministère de l&apos;Intérieur · INSEE</span>
           <LanguageSwitcher />
         </div>
       </nav>
 
-      {/* Main layout */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left sidebar */}
+      {/* Main */}
+      <div className="flex flex-1 overflow-hidden relative">
+
+        {/* ── Desktop Sidebar ─────────────────────────────────── */}
         <motion.aside
-          initial={{ x: -20, opacity: 0 }}
+          initial={{ x: -10, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="w-72 shrink-0 glass border-r border-white/5 overflow-y-auto p-4 flex flex-col gap-5"
+          className="hidden md:flex w-[272px] shrink-0 flex-col border-r border-white/5 overflow-hidden"
         >
-          {/* Election year */}
-          <GlassPanel className="p-4">
-            <YearSelector selectedYear={selectedYear} onYearChange={handleYearChange} />
-          </GlassPanel>
-
-          {/* Tour */}
-          <GlassPanel className="p-4">
-            <TourSelector selected={selectedTour} onSelect={setSelectedTour} />
-          </GlassPanel>
-
-          {/* Candidate */}
-          <GlassPanel className="p-4">
-            <CandidateSelector
-              candidates={candidates}
-              selectedId={selectedCandidateId}
-              onSelect={setSelectedCandidateId}
-            />
-          </GlassPanel>
-
-          {/* Indicator */}
-          <GlassPanel className="p-4">
-            <IndicatorSelector selected={indicator} onSelect={setIndicator} />
-          </GlassPanel>
-
-          {/* Stats summary */}
-          {selectedCandidate && (
-            <GlassPanel className="p-4" glow="blue">
-              <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
-                Résumé national
-              </div>
-              <div className="space-y-3">
-                <div>
-                  <div className="text-xs text-gray-500 mb-0.5">Score moyen</div>
-                  <div
-                    className="text-2xl font-black"
-                    style={{ color: selectedCandidate.color }}
-                  >
-                    {avgScore.toFixed(1)}%
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500 mb-1.5">Top 5 départements</div>
-                  <div className="space-y-1">
-                    {topDepts.map((d) => (
-                      <div key={d.code} className="flex items-center justify-between">
-                        <span className="text-xs text-gray-300 truncate">{d.name}</span>
-                        <span
-                          className="text-xs font-bold ml-2"
-                          style={{ color: selectedCandidate.color }}
-                        >
-                          {(d.candidates[selectedCandidate.id] ?? 0).toFixed(1)}%
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </GlassPanel>
-          )}
+          {sidebarContent}
         </motion.aside>
 
-        {/* Main content */}
-        <div className="flex-1 flex flex-col overflow-hidden p-4 gap-4">
-          {/* Map title */}
-          <div className="flex items-center justify-between shrink-0">
-            <div>
-              <h1 className="text-lg font-bold text-white">
-                Présidentielle {selectedYear} — {selectedTour === 1 ? "1er tour" : "2ème tour"}
-              </h1>
-              {selectedCandidate && (
-                <p className="text-sm text-gray-400 flex items-center gap-1.5 mt-0.5">
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: selectedCandidate.color }}
-                  />
-                  {selectedCandidate.name} · {selectedCandidate.party}
-                </p>
-              )}
+        {/* ── Mobile drawer overlay ─────────────────────────── */}
+        <AnimatePresence>
+          {drawerOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 z-30 bg-black/60 md:hidden"
+                onClick={() => setDrawerOpen(false)}
+              />
+              {/* Drawer */}
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ type: "spring", stiffness: 300, damping: 32 }}
+                className="absolute left-0 top-0 bottom-0 z-40 md:hidden flex flex-col bg-[#0d0d14] border-r border-white/5 overflow-hidden"
+                style={{ width: 288 }}
+              >
+                {/* Drawer header */}
+                <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 shrink-0">
+                  <span className="text-sm font-bold text-white">
+                    Présidentielle {selectedYear}
+                  </span>
+                  <button
+                    onClick={() => setDrawerOpen(false)}
+                    className="text-gray-500 hover:text-white text-xl leading-none"
+                  >
+                    ×
+                  </button>
+                </div>
+                {sidebarContent}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* ── Content area ──────────────────────────────────────── */}
+        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+          {/* Header strip */}
+          <div className="px-3 md:px-4 py-2 flex items-center gap-2 md:gap-3 shrink-0 border-b border-white/5">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-sm font-bold text-white truncate">
+                Présidentielle {selectedYear}
+              </span>
+              <span className="text-gray-500 text-sm shrink-0">
+                · {selectedTour === 1 ? "T1" : "T2"}
+              </span>
             </div>
+            {mapMode === "candidate" && selectedCandidate && (
+              <div className="flex items-center gap-1.5 text-sm min-w-0">
+                <span className="text-gray-500 shrink-0">·</span>
+                <span className="text-gray-300 truncate">{selectedCandidate}</span>
+              </div>
+            )}
+            {mapMode === "winner" && (
+              <div className="hidden sm:flex items-center gap-1.5 text-sm">
+                <span className="text-gray-500">·</span>
+                <span className="text-gray-400">Carte des gagnants</span>
+              </div>
+            )}
           </div>
 
-          {/* Map */}
-          <motion.div
-            key={`${selectedYear}-${selectedTour}-${selectedCandidateId}`}
-            initial={{ opacity: 0.7 }}
-            animate={{ opacity: 1 }}
-            className="flex-1 min-h-0 rounded-xl overflow-hidden"
-            style={{ minHeight: "400px" }}
-          >
-            {selectedCandidate && (
+          {/* Map + Scatter split */}
+          <div className="flex-1 flex flex-col overflow-hidden p-2 md:p-3 gap-2 md:gap-3">
+            {/* Map */}
+            <div className="flex-1 min-h-0 relative" style={{ minHeight: 220 }}>
               <ElectionMap
                 results={results}
-                selectedCandidateId={selectedCandidateId}
-                candidate={selectedCandidate}
+                selectedCandidate={selectedCandidate}
+                mapMode={mapMode}
+                onDeptClick={setSelectedDept}
               />
-            )}
-          </motion.div>
+              <DeptPanel dept={selectedDept} onClose={() => setSelectedDept(null)} />
+            </div>
 
-          {/* Scatter plot */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="glass rounded-xl p-4 shrink-0"
-            style={{ height: "260px" }}
-          >
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-sm font-semibold text-gray-300">
-                {t("scatterTitle")}
-              </h2>
+            {/* Scatter plot */}
+            <AnimatePresence>
               {indicator !== "none" && (
-                <span className="text-xs text-gray-500">96 départements</span>
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 200 }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="glass rounded-xl overflow-hidden shrink-0"
+                >
+                  <div className="p-3 h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-1 shrink-0">
+                      <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                        Corrélation socio-éco
+                      </h2>
+                      <button onClick={() => setIndicator("none")} className="text-gray-600 hover:text-gray-400 text-sm">✕</button>
+                    </div>
+                    <div className="flex-1 min-h-0">
+                      {effectiveCandidate && results.length > 0 && (
+                        <ScatterPlot
+                          results={results}
+                          socioeco={socioeco}
+                          selectedCandidate={effectiveCandidate}
+                          indicator={indicator}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               )}
-            </div>
-            <div style={{ height: "200px" }}>
-              {selectedCandidate && (
-                <ScatterPlot
-                  results={results}
-                  selectedCandidateId={selectedCandidateId}
-                  candidate={selectedCandidate}
-                  indicator={indicator}
-                />
-              )}
-            </div>
-          </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
+
+      {/* Timeline panel — slides in from bottom */}
+      <AnimatePresence>
+        {showTimeline && index && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 260, opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 30 }}
+            className="shrink-0 border-t border-white/5 glass overflow-hidden"
+          >
+            <div className="h-full p-3 md:p-4 flex flex-col">
+              <TimelineChart index={index} tour={selectedTour} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

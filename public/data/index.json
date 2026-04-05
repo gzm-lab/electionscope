@@ -1,0 +1,336 @@
+{
+  "elections": [
+    {
+      "year": 1965,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "de Gaulle",
+        "Mitterrand",
+        "Lecanuet",
+        "Tixier-Vignancour"
+      ],
+      "candidates_t2": [
+        "de Gaulle",
+        "Mitterrand"
+      ],
+      "national_t1": {
+        "de Gaulle": 44.65,
+        "Mitterrand": 31.72,
+        "Lecanuet": 15.57,
+        "Tixier-Vignancour": 5.19,
+        "Autres": 2.87
+      },
+      "national_t2": {
+        "de Gaulle": 55.2,
+        "Mitterrand": 44.8
+      }
+    },
+    {
+      "year": 1969,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Pompidou",
+        "Poher",
+        "Duclos",
+        "Defferre"
+      ],
+      "candidates_t2": [
+        "Pompidou",
+        "Poher"
+      ],
+      "national_t1": {
+        "Pompidou": 44.47,
+        "Poher": 23.31,
+        "Duclos": 21.27,
+        "Defferre": 5.01,
+        "Autres": 5.94
+      },
+      "national_t2": {
+        "Pompidou": 57.58,
+        "Poher": 42.42
+      }
+    },
+    {
+      "year": 1974,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Giscard",
+        "Mitterrand",
+        "Chaban-Delmas",
+        "Royer"
+      ],
+      "candidates_t2": [
+        "Giscard",
+        "Mitterrand"
+      ],
+      "national_t1": {
+        "Giscard": 32.6,
+        "Mitterrand": 43.25,
+        "Chaban-Delmas": 14.98,
+        "Royer": 3.17,
+        "Autres": 6.0
+      },
+      "national_t2": {
+        "Giscard": 50.81,
+        "Mitterrand": 49.19
+      }
+    },
+    {
+      "year": 1981,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Mitterrand",
+        "Giscard",
+        "Chirac",
+        "Marchais",
+        "Lalonde"
+      ],
+      "candidates_t2": [
+        "Mitterrand",
+        "Giscard"
+      ],
+      "national_t1": {
+        "Mitterrand": 25.85,
+        "Giscard": 28.32,
+        "Chirac": 17.99,
+        "Marchais": 15.35,
+        "Lalonde": 3.87,
+        "Autres": 8.62
+      },
+      "national_t2": {
+        "Mitterrand": 51.76,
+        "Giscard": 48.24
+      }
+    },
+    {
+      "year": 1988,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Mitterrand",
+        "Chirac",
+        "Barre",
+        "Le Pen",
+        "Lajoinie"
+      ],
+      "candidates_t2": [
+        "Mitterrand",
+        "Chirac"
+      ],
+      "national_t1": {
+        "Mitterrand": 34.11,
+        "Chirac": 19.94,
+        "Barre": 16.54,
+        "Le Pen": 14.39,
+        "Lajoinie": 6.76,
+        "Autres": 8.26
+      },
+      "national_t2": {
+        "Mitterrand": 54.02,
+        "Chirac": 45.98
+      }
+    },
+    {
+      "year": 1995,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Jospin",
+        "Chirac",
+        "Balladur",
+        "Le Pen",
+        "Hue"
+      ],
+      "candidates_t2": [
+        "Chirac",
+        "Jospin"
+      ],
+      "national_t1": {
+        "Jospin": 23.3,
+        "Chirac": 20.84,
+        "Balladur": 18.58,
+        "Le Pen": 15.0,
+        "Hue": 8.64,
+        "Autres": 13.64
+      },
+      "national_t2": {
+        "Chirac": 52.64,
+        "Jospin": 47.36
+      }
+    },
+    {
+      "year": 2002,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Chirac",
+        "Le Pen",
+        "Jospin",
+        "Bayrou",
+        "Arlette",
+        "Chevènement",
+        "Mamère",
+        "Besancenot"
+      ],
+      "candidates_t2": [
+        "Chirac",
+        "Le Pen"
+      ],
+      "national_t1": {
+        "Chirac": 19.88,
+        "Le Pen": 16.86,
+        "Jospin": 16.18,
+        "Bayrou": 6.84,
+        "Arlette": 5.72,
+        "Chevènement": 5.33,
+        "Mamère": 5.25,
+        "Besancenot": 4.25,
+        "Autres": 19.69
+      },
+      "national_t2": {
+        "Chirac": 82.21,
+        "Le Pen": 17.79
+      }
+    },
+    {
+      "year": 2007,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Sarkozy",
+        "Royal",
+        "Bayrou",
+        "Le Pen",
+        "Besancenot"
+      ],
+      "candidates_t2": [
+        "Sarkozy",
+        "Royal"
+      ],
+      "national_t1": {
+        "Sarkozy": 31.18,
+        "Royal": 25.87,
+        "Bayrou": 18.57,
+        "Le Pen": 10.44,
+        "Besancenot": 4.08,
+        "Autres": 9.86
+      },
+      "national_t2": {
+        "Sarkozy": 53.06,
+        "Royal": 46.94
+      }
+    },
+    {
+      "year": 2012,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Hollande",
+        "Sarkozy",
+        "Le Pen",
+        "Mélenchon",
+        "Bayrou"
+      ],
+      "candidates_t2": [
+        "Hollande",
+        "Sarkozy"
+      ],
+      "national_t1": {
+        "Hollande": 28.63,
+        "Sarkozy": 27.18,
+        "Le Pen": 17.9,
+        "Mélenchon": 11.1,
+        "Bayrou": 9.13,
+        "Autres": 6.06
+      },
+      "national_t2": {
+        "Hollande": 51.64,
+        "Sarkozy": 48.36
+      }
+    },
+    {
+      "year": 2017,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Macron",
+        "Le Pen",
+        "Fillon",
+        "Mélenchon",
+        "Hamon"
+      ],
+      "candidates_t2": [
+        "Macron",
+        "Le Pen"
+      ],
+      "national_t1": {
+        "Macron": 24.01,
+        "Le Pen": 21.3,
+        "Fillon": 20.01,
+        "Mélenchon": 19.58,
+        "Hamon": 6.36,
+        "Autres": 8.74
+      },
+      "national_t2": {
+        "Macron": 66.1,
+        "Le Pen": 33.9
+      }
+    },
+    {
+      "year": 2022,
+      "tours": [
+        1,
+        2
+      ],
+      "candidates_t1": [
+        "Macron",
+        "Le Pen",
+        "Mélenchon",
+        "Zemmour",
+        "Pécresse",
+        "Jadot"
+      ],
+      "candidates_t2": [
+        "Macron",
+        "Le Pen"
+      ],
+      "national_t1": {
+        "Macron": 27.85,
+        "Le Pen": 23.15,
+        "Mélenchon": 21.95,
+        "Zemmour": 7.07,
+        "Pécresse": 4.78,
+        "Jadot": 4.63,
+        "Autres": 10.57
+      },
+      "national_t2": {
+        "Macron": 58.55,
+        "Le Pen": 41.45
+      }
+    }
+  ]
+}
