@@ -1,482 +1,482 @@
 {
   "01": {
-    "revenue": 1820,
-    "unemployment": 8.2,
-    "poverty": 12.1
+    "revenue": 2068,
+    "unemployment": 18.0,
+    "poverty": 11.0
   },
   "02": {
-    "revenue": 1610,
-    "unemployment": 13.4,
-    "poverty": 20.8
+    "revenue": 1743,
+    "unemployment": 32.0,
+    "poverty": 19.0
   },
   "03": {
-    "revenue": 1590,
-    "unemployment": 10.1,
-    "poverty": 18.5
+    "revenue": 1792,
+    "unemployment": 22.0,
+    "poverty": 16.0
   },
   "04": {
-    "revenue": 1640,
-    "unemployment": 10.8,
-    "poverty": 17.2
+    "revenue": 1816,
+    "unemployment": 22.0,
+    "poverty": 17.0
   },
   "05": {
-    "revenue": 1720,
-    "unemployment": 8.6,
-    "poverty": 13.8
+    "revenue": 1834,
+    "unemployment": 17.0,
+    "poverty": 15.0
   },
   "06": {
-    "revenue": 1950,
-    "unemployment": 9.4,
-    "poverty": 16.2
+    "revenue": 1955,
+    "unemployment": 23.0,
+    "poverty": 16.0
   },
   "07": {
-    "revenue": 1640,
-    "unemployment": 9.7,
-    "poverty": 16.8
+    "revenue": 1832,
+    "unemployment": 22.0,
+    "poverty": 15.0
   },
   "08": {
-    "revenue": 1570,
-    "unemployment": 13.8,
-    "poverty": 20.4
+    "revenue": 1738,
+    "unemployment": 28.0,
+    "poverty": 19.0
   },
   "09": {
-    "revenue": 1540,
-    "unemployment": 11.6,
-    "poverty": 20.9
+    "revenue": 1735,
+    "unemployment": 24.0,
+    "poverty": 19.0
   },
   "10": {
-    "revenue": 1680,
-    "unemployment": 11.2,
-    "poverty": 18.1
+    "revenue": 1794,
+    "unemployment": 26.0,
+    "poverty": 17.0
   },
   "11": {
-    "revenue": 1490,
-    "unemployment": 14.6,
-    "poverty": 23.7
+    "revenue": 1709,
+    "unemployment": 28.0,
+    "poverty": 21.0
   },
   "12": {
-    "revenue": 1640,
-    "unemployment": 7.8,
-    "poverty": 15.4
+    "revenue": 1822,
+    "unemployment": 17.0,
+    "poverty": 15.0
   },
   "13": {
-    "revenue": 1820,
-    "unemployment": 13.8,
-    "poverty": 20.1
+    "revenue": 1910,
+    "unemployment": 24.0,
+    "poverty": 19.0
   },
   "14": {
-    "revenue": 1740,
-    "unemployment": 9.6,
-    "poverty": 15.6
+    "revenue": 1903,
+    "unemployment": 21.0,
+    "poverty": 13.0
   },
   "15": {
-    "revenue": 1560,
-    "unemployment": 7.2,
-    "poverty": 16.1
+    "revenue": 1809,
+    "unemployment": 14.0,
+    "poverty": 14.0
   },
   "16": {
-    "revenue": 1620,
-    "unemployment": 10.4,
-    "poverty": 17.8
+    "revenue": 1833,
+    "unemployment": 22.0,
+    "poverty": 15.0
   },
   "17": {
-    "revenue": 1700,
-    "unemployment": 9.8,
-    "poverty": 16.4
+    "revenue": 1901,
+    "unemployment": 23.0,
+    "poverty": 13.0
   },
   "18": {
-    "revenue": 1620,
-    "unemployment": 10.6,
-    "poverty": 18.2
+    "revenue": 1842,
+    "unemployment": 24.0,
+    "poverty": 15.0
   },
   "19": {
-    "revenue": 1640,
-    "unemployment": 7.9,
-    "poverty": 16.0
-  },
-  "21": {
-    "revenue": 1810,
-    "unemployment": 9.4,
-    "poverty": 14.8
-  },
-  "22": {
-    "revenue": 1660,
-    "unemployment": 8.6,
-    "poverty": 15.2
-  },
-  "23": {
-    "revenue": 1480,
-    "unemployment": 8.4,
-    "poverty": 20.6
-  },
-  "24": {
-    "revenue": 1620,
-    "unemployment": 9.8,
-    "poverty": 17.4
-  },
-  "25": {
-    "revenue": 1760,
-    "unemployment": 9.2,
-    "poverty": 14.9
-  },
-  "26": {
-    "revenue": 1700,
-    "unemployment": 10.8,
-    "poverty": 17.6
-  },
-  "27": {
-    "revenue": 1720,
-    "unemployment": 11.4,
-    "poverty": 17.2
-  },
-  "28": {
-    "revenue": 1740,
-    "unemployment": 9.8,
-    "poverty": 15.4
-  },
-  "29": {
-    "revenue": 1710,
-    "unemployment": 8.4,
-    "poverty": 14.6
+    "revenue": 1845,
+    "unemployment": 19.0,
+    "poverty": 14.0
   },
   "2A": {
-    "revenue": 1680,
-    "unemployment": 9.8,
-    "poverty": 17.4
-  },
-  "2B": {
-    "revenue": 1620,
-    "unemployment": 10.4,
-    "poverty": 19.1
-  },
-  "30": {
-    "revenue": 1580,
-    "unemployment": 14.2,
-    "poverty": 22.8
-  },
-  "31": {
-    "revenue": 1900,
-    "unemployment": 9.6,
-    "poverty": 15.4
-  },
-  "32": {
-    "revenue": 1600,
-    "unemployment": 8.8,
-    "poverty": 17.0
-  },
-  "33": {
-    "revenue": 1920,
-    "unemployment": 9.8,
-    "poverty": 15.8
-  },
-  "34": {
-    "revenue": 1680,
-    "unemployment": 13.6,
-    "poverty": 21.4
-  },
-  "35": {
-    "revenue": 1880,
-    "unemployment": 8.0,
-    "poverty": 12.8
-  },
-  "36": {
-    "revenue": 1570,
-    "unemployment": 10.2,
-    "poverty": 18.8
-  },
-  "37": {
-    "revenue": 1780,
-    "unemployment": 9.4,
-    "poverty": 15.2
-  },
-  "38": {
-    "revenue": 1940,
-    "unemployment": 8.6,
-    "poverty": 13.4
-  },
-  "39": {
-    "revenue": 1720,
-    "unemployment": 8.4,
-    "poverty": 14.8
-  },
-  "40": {
-    "revenue": 1780,
-    "unemployment": 8.6,
-    "poverty": 15.0
-  },
-  "41": {
-    "revenue": 1680,
-    "unemployment": 9.6,
-    "poverty": 16.4
-  },
-  "42": {
-    "revenue": 1680,
-    "unemployment": 10.4,
-    "poverty": 17.2
-  },
-  "43": {
-    "revenue": 1620,
-    "unemployment": 8.4,
-    "poverty": 15.6
-  },
-  "44": {
-    "revenue": 1920,
-    "unemployment": 8.2,
-    "poverty": 13.2
-  },
-  "45": {
-    "revenue": 1800,
-    "unemployment": 9.6,
-    "poverty": 15.8
-  },
-  "46": {
-    "revenue": 1580,
-    "unemployment": 8.6,
-    "poverty": 17.4
-  },
-  "47": {
-    "revenue": 1590,
-    "unemployment": 11.4,
-    "poverty": 19.6
-  },
-  "48": {
-    "revenue": 1600,
-    "unemployment": 6.8,
-    "poverty": 15.8
-  },
-  "49": {
-    "revenue": 1780,
-    "unemployment": 8.8,
-    "poverty": 15.0
-  },
-  "50": {
-    "revenue": 1700,
-    "unemployment": 8.6,
-    "poverty": 15.2
-  },
-  "51": {
-    "revenue": 1780,
-    "unemployment": 10.4,
-    "poverty": 17.2
-  },
-  "52": {
-    "revenue": 1640,
-    "unemployment": 11.4,
-    "poverty": 18.6
-  },
-  "53": {
-    "revenue": 1720,
-    "unemployment": 6.8,
-    "poverty": 13.4
-  },
-  "54": {
-    "revenue": 1740,
-    "unemployment": 11.6,
-    "poverty": 18.4
-  },
-  "55": {
-    "revenue": 1610,
-    "unemployment": 11.2,
-    "poverty": 18.2
-  },
-  "56": {
-    "revenue": 1700,
-    "unemployment": 8.6,
-    "poverty": 15.4
-  },
-  "57": {
-    "revenue": 1760,
-    "unemployment": 11.2,
-    "poverty": 17.8
-  },
-  "58": {
-    "revenue": 1540,
-    "unemployment": 10.4,
-    "poverty": 19.2
-  },
-  "59": {
-    "revenue": 1680,
-    "unemployment": 14.6,
-    "poverty": 21.8
-  },
-  "60": {
-    "revenue": 1760,
-    "unemployment": 11.2,
-    "poverty": 16.8
-  },
-  "61": {
-    "revenue": 1620,
-    "unemployment": 9.8,
-    "poverty": 17.0
-  },
-  "62": {
-    "revenue": 1600,
-    "unemployment": 14.8,
-    "poverty": 22.4
-  },
-  "63": {
-    "revenue": 1740,
-    "unemployment": 9.2,
+    "revenue": 1952,
+    "unemployment": 21.0,
     "poverty": 16.0
   },
-  "64": {
-    "revenue": 1820,
-    "unemployment": 9.4,
-    "poverty": 15.2
+  "2B": {
+    "revenue": 1788,
+    "unemployment": 22.0,
+    "poverty": 20.0
   },
-  "65": {
-    "revenue": 1640,
-    "unemployment": 10.6,
-    "poverty": 17.8
+  "21": {
+    "revenue": 1977,
+    "unemployment": 19.0,
+    "poverty": 12.0
   },
-  "66": {
-    "revenue": 1490,
-    "unemployment": 16.4,
-    "poverty": 26.8
+  "22": {
+    "revenue": 1889,
+    "unemployment": 20.0,
+    "poverty": 12.0
   },
-  "67": {
-    "revenue": 1900,
-    "unemployment": 8.6,
-    "poverty": 14.2
+  "23": {
+    "revenue": 1718,
+    "unemployment": 22.0,
+    "poverty": 19.0
   },
-  "68": {
-    "revenue": 1840,
-    "unemployment": 9.4,
-    "poverty": 15.6
-  },
-  "69": {
-    "revenue": 2060,
-    "unemployment": 9.2,
-    "poverty": 15.2
-  },
-  "70": {
-    "revenue": 1640,
-    "unemployment": 10.4,
-    "poverty": 16.8
-  },
-  "71": {
-    "revenue": 1700,
-    "unemployment": 9.8,
-    "poverty": 16.4
-  },
-  "72": {
-    "revenue": 1720,
-    "unemployment": 10.2,
-    "poverty": 16.2
-  },
-  "73": {
-    "revenue": 1860,
-    "unemployment": 7.8,
-    "poverty": 12.6
-  },
-  "74": {
-    "revenue": 2120,
-    "unemployment": 6.8,
-    "poverty": 10.8
-  },
-  "75": {
-    "revenue": 2380,
-    "unemployment": 8.2,
-    "poverty": 14.8
-  },
-  "76": {
-    "revenue": 1740,
-    "unemployment": 11.8,
-    "poverty": 18.4
-  },
-  "77": {
-    "revenue": 1980,
-    "unemployment": 8.6,
-    "poverty": 12.8
-  },
-  "78": {
-    "revenue": 2580,
-    "unemployment": 7.2,
-    "poverty": 8.4
-  },
-  "79": {
-    "revenue": 1680,
-    "unemployment": 8.6,
-    "poverty": 15.8
-  },
-  "80": {
-    "revenue": 1640,
-    "unemployment": 13.4,
-    "poverty": 20.6
-  },
-  "81": {
-    "revenue": 1620,
-    "unemployment": 11.2,
-    "poverty": 18.8
-  },
-  "82": {
-    "revenue": 1600,
-    "unemployment": 11.8,
-    "poverty": 19.6
-  },
-  "83": {
-    "revenue": 1840,
-    "unemployment": 10.6,
-    "poverty": 16.2
-  },
-  "84": {
-    "revenue": 1620,
-    "unemployment": 13.8,
-    "poverty": 22.4
-  },
-  "85": {
-    "revenue": 1780,
-    "unemployment": 7.4,
-    "poverty": 12.8
-  },
-  "86": {
-    "revenue": 1720,
-    "unemployment": 9.8,
-    "poverty": 16.4
-  },
-  "87": {
-    "revenue": 1680,
-    "unemployment": 10.2,
+  "24": {
+    "revenue": 1784,
+    "unemployment": 24.0,
     "poverty": 17.0
   },
+  "25": {
+    "revenue": 1991,
+    "unemployment": 19.0,
+    "poverty": 13.0
+  },
+  "26": {
+    "revenue": 1871,
+    "unemployment": 23.0,
+    "poverty": 15.0
+  },
+  "27": {
+    "revenue": 1907,
+    "unemployment": 24.0,
+    "poverty": 13.0
+  },
+  "28": {
+    "revenue": 1947,
+    "unemployment": 22.0,
+    "poverty": 12.0
+  },
+  "29": {
+    "revenue": 1935,
+    "unemployment": 20.0,
+    "poverty": 11.0
+  },
+  "30": {
+    "revenue": 1778,
+    "unemployment": 29.0,
+    "poverty": 20.0
+  },
+  "31": {
+    "revenue": 2019,
+    "unemployment": 22.0,
+    "poverty": 14.0
+  },
+  "32": {
+    "revenue": 1842,
+    "unemployment": 21.0,
+    "poverty": 15.0
+  },
+  "33": {
+    "revenue": 1996,
+    "unemployment": 22.0,
+    "poverty": 13.0
+  },
+  "34": {
+    "revenue": 1817,
+    "unemployment": 29.0,
+    "poverty": 19.0
+  },
+  "35": {
+    "revenue": 1974,
+    "unemployment": 18.0,
+    "poverty": 11.0
+  },
+  "36": {
+    "revenue": 1772,
+    "unemployment": 22.0,
+    "poverty": 15.0
+  },
+  "37": {
+    "revenue": 1928,
+    "unemployment": 22.0,
+    "poverty": 13.0
+  },
+  "38": {
+    "revenue": 2022,
+    "unemployment": 20.0,
+    "poverty": 12.0
+  },
+  "39": {
+    "revenue": 1928,
+    "unemployment": 17.0,
+    "poverty": 12.0
+  },
+  "40": {
+    "revenue": 1903,
+    "unemployment": 23.0,
+    "poverty": 12.0
+  },
+  "41": {
+    "revenue": 1876,
+    "unemployment": 21.0,
+    "poverty": 13.0
+  },
+  "42": {
+    "revenue": 1831,
+    "unemployment": 22.0,
+    "poverty": 16.0
+  },
+  "43": {
+    "revenue": 1842,
+    "unemployment": 16.0,
+    "poverty": 12.0
+  },
+  "44": {
+    "revenue": 2010,
+    "unemployment": 18.0,
+    "poverty": 11.0
+  },
+  "45": {
+    "revenue": 1924,
+    "unemployment": 23.0,
+    "poverty": 14.0
+  },
+  "46": {
+    "revenue": 1826,
+    "unemployment": 23.0,
+    "poverty": 15.0
+  },
+  "47": {
+    "revenue": 1754,
+    "unemployment": 23.0,
+    "poverty": 18.0
+  },
+  "48": {
+    "revenue": 1798,
+    "unemployment": 17.0,
+    "poverty": 16.0
+  },
+  "49": {
+    "revenue": 1875,
+    "unemployment": 19.0,
+    "poverty": 12.0
+  },
+  "50": {
+    "revenue": 1873,
+    "unemployment": 17.0,
+    "poverty": 12.0
+  },
+  "51": {
+    "revenue": 1902,
+    "unemployment": 23.0,
+    "poverty": 15.0
+  },
+  "52": {
+    "revenue": 1779,
+    "unemployment": 22.0,
+    "poverty": 15.0
+  },
+  "53": {
+    "revenue": 1852,
+    "unemployment": 15.0,
+    "poverty": 12.0
+  },
+  "54": {
+    "revenue": 1918,
+    "unemployment": 22.0,
+    "poverty": 15.0
+  },
+  "55": {
+    "revenue": 1824,
+    "unemployment": 22.0,
+    "poverty": 15.0
+  },
+  "56": {
+    "revenue": 1928,
+    "unemployment": 19.0,
+    "poverty": 11.0
+  },
+  "57": {
+    "revenue": 1915,
+    "unemployment": 23.0,
+    "poverty": 16.0
+  },
+  "58": {
+    "revenue": 1782,
+    "unemployment": 22.0,
+    "poverty": 16.0
+  },
+  "59": {
+    "revenue": 1778,
+    "unemployment": 29.0,
+    "poverty": 20.0
+  },
+  "60": {
+    "revenue": 1944,
+    "unemployment": 25.0,
+    "poverty": 13.0
+  },
+  "61": {
+    "revenue": 1783,
+    "unemployment": 21.0,
+    "poverty": 16.0
+  },
+  "62": {
+    "revenue": 1727,
+    "unemployment": 29.0,
+    "poverty": 18.0
+  },
+  "63": {
+    "revenue": 1922,
+    "unemployment": 21.0,
+    "poverty": 14.0
+  },
+  "64": {
+    "revenue": 1942,
+    "unemployment": 21.0,
+    "poverty": 13.0
+  },
+  "65": {
+    "revenue": 1794,
+    "unemployment": 22.0,
+    "poverty": 16.0
+  },
+  "66": {
+    "revenue": 1721,
+    "unemployment": 33.0,
+    "poverty": 21.0
+  },
+  "67": {
+    "revenue": 2008,
+    "unemployment": 20.0,
+    "poverty": 14.0
+  },
+  "68": {
+    "revenue": 2039,
+    "unemployment": 22.0,
+    "poverty": 14.0
+  },
+  "69": {
+    "revenue": 2040,
+    "unemployment": 20.0,
+    "poverty": 15.0
+  },
+  "70": {
+    "revenue": 1822,
+    "unemployment": 20.0,
+    "poverty": 14.0
+  },
+  "71": {
+    "revenue": 1848,
+    "unemployment": 20.0,
+    "poverty": 13.0
+  },
+  "72": {
+    "revenue": 1852,
+    "unemployment": 21.0,
+    "poverty": 14.0
+  },
+  "73": {
+    "revenue": 2022,
+    "unemployment": 15.0,
+    "poverty": 11.0
+  },
+  "74": {
+    "revenue": 2343,
+    "unemployment": 16.0,
+    "poverty": 10.0
+  },
+  "75": {
+    "revenue": 2478,
+    "unemployment": 18.0,
+    "poverty": 16.0
+  },
+  "76": {
+    "revenue": 1862,
+    "unemployment": 25.0,
+    "poverty": 15.0
+  },
+  "77": {
+    "revenue": 2053,
+    "unemployment": 22.0,
+    "poverty": 12.0
+  },
+  "78": {
+    "revenue": 2344,
+    "unemployment": 20.0,
+    "poverty": 11.0
+  },
+  "79": {
+    "revenue": 1852,
+    "unemployment": 18.0,
+    "poverty": 12.0
+  },
+  "80": {
+    "revenue": 1797,
+    "unemployment": 27.0,
+    "poverty": 16.0
+  },
+  "81": {
+    "revenue": 1811,
+    "unemployment": 25.0,
+    "poverty": 16.0
+  },
+  "82": {
+    "revenue": 1793,
+    "unemployment": 25.0,
+    "poverty": 17.0
+  },
+  "83": {
+    "revenue": 1927,
+    "unemployment": 25.0,
+    "poverty": 16.0
+  },
+  "84": {
+    "revenue": 1781,
+    "unemployment": 27.0,
+    "poverty": 20.0
+  },
+  "85": {
+    "revenue": 1899,
+    "unemployment": 16.0,
+    "poverty": 9.0
+  },
+  "86": {
+    "revenue": 1852,
+    "unemployment": 22.0,
+    "poverty": 15.0
+  },
+  "87": {
+    "revenue": 1845,
+    "unemployment": 24.0,
+    "poverty": 16.0
+  },
   "88": {
-    "revenue": 1620,
-    "unemployment": 11.4,
-    "poverty": 18.6
+    "revenue": 1796,
+    "unemployment": 23.0,
+    "poverty": 15.0
   },
   "89": {
-    "revenue": 1700,
-    "unemployment": 10.4,
-    "poverty": 17.4
+    "revenue": 1828,
+    "unemployment": 24.0,
+    "poverty": 15.0
   },
   "90": {
-    "revenue": 1720,
-    "unemployment": 11.6,
-    "poverty": 17.2
+    "revenue": 1910,
+    "unemployment": 23.0,
+    "poverty": 16.0
   },
   "91": {
-    "revenue": 2100,
-    "unemployment": 8.6,
-    "poverty": 12.2
+    "revenue": 2087,
+    "unemployment": 21.0,
+    "poverty": 14.0
   },
   "92": {
-    "revenue": 2680,
-    "unemployment": 6.8,
-    "poverty": 7.4
+    "revenue": 2477,
+    "unemployment": 20.0,
+    "poverty": 12.0
   },
   "93": {
-    "revenue": 1640,
-    "unemployment": 16.2,
-    "poverty": 28.8
+    "revenue": 1585,
+    "unemployment": 28.0,
+    "poverty": 28.0
   },
   "94": {
-    "revenue": 2080,
-    "unemployment": 9.4,
-    "poverty": 13.6
+    "revenue": 2022,
+    "unemployment": 22.0,
+    "poverty": 17.0
   },
   "95": {
-    "revenue": 1980,
-    "unemployment": 10.2,
-    "poverty": 15.4
+    "revenue": 1941,
+    "unemployment": 24.0,
+    "poverty": 18.0
   }
 }
