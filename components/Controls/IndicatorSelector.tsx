@@ -3,7 +3,18 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
-export type Indicator = "revenue" | "unemployment" | "poverty";
+export type Indicator =
+  | "revenue"
+  | "unemployment"
+  | "poverty"
+  | "medecins_per_100k"
+  | "pharmacies_per_100k"
+  | "sau_pct"
+  | "chasse_per_100k"
+  | "lieux_culte_per_100k"
+  | "rugby_clubs_per_100k"
+  | "fast_food_per_100k"
+  | "ensoleillement_h";
 
 interface IndicatorSelectorProps {
   selected: Indicator;
@@ -14,9 +25,17 @@ export default function IndicatorSelector({ selected, onSelect }: IndicatorSelec
   const t = useTranslations("explore");
 
   const indicators: { id: Indicator; icon: string }[] = [
-    { id: "revenue", icon: "💶" },
-    { id: "unemployment", icon: "📊" },
-    { id: "poverty", icon: "📉" },
+    { id: "revenue",            icon: "💶" },
+    { id: "unemployment",       icon: "📊" },
+    { id: "poverty",            icon: "📉" },
+    { id: "medecins_per_100k",  icon: "👨‍⚕️" },
+    { id: "pharmacies_per_100k",icon: "💊" },
+    { id: "sau_pct",            icon: "🚜" },
+    { id: "chasse_per_100k",    icon: "🎯" },
+    { id: "lieux_culte_per_100k", icon: "⛪" },
+    { id: "rugby_clubs_per_100k", icon: "🏈" },
+    { id: "fast_food_per_100k", icon: "🍔" },
+    { id: "ensoleillement_h",   icon: "☀️" },
   ];
 
   return (

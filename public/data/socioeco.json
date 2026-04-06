@@ -2,481 +2,1249 @@
   "01": {
     "revenue": 2068,
     "unemployment": 18.0,
-    "poverty": 11.0
+    "poverty": 11.0,
+    "medecins_per_100k": 97.56,
+    "pharmacies_per_100k": 23.52,
+    "sau_pct": 34.8,
+    "chasse_per_100k": 48.22,
+    "lieux_culte_per_100k": 13.71,
+    "rugby_clubs_per_100k": 10.94,
+    "fast_food_per_100k": 366.1,
+    "ensoleillement_h": 1924.9
   },
   "02": {
     "revenue": 1743,
     "unemployment": 32.0,
-    "poverty": 19.0
+    "poverty": 19.0,
+    "medecins_per_100k": 114.13,
+    "pharmacies_per_100k": 30.9,
+    "sau_pct": 47.8,
+    "chasse_per_100k": 300.67,
+    "lieux_culte_per_100k": 20.81,
+    "rugby_clubs_per_100k": 3.97,
+    "fast_food_per_100k": 222.96,
+    "ensoleillement_h": 1824.7
   },
   "03": {
     "revenue": 1792,
     "unemployment": 22.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 136.17,
+    "pharmacies_per_100k": 37.03,
+    "sau_pct": 47.7,
+    "chasse_per_100k": 81.96,
+    "lieux_culte_per_100k": 27.22,
+    "rugby_clubs_per_100k": 14.2,
+    "fast_food_per_100k": 437.69,
+    "ensoleillement_h": 1912.6
   },
   "04": {
     "revenue": 1816,
     "unemployment": 22.0,
-    "poverty": 17.0
+    "poverty": 17.0,
+    "medecins_per_100k": 158.36,
+    "pharmacies_per_100k": 34.92,
+    "sau_pct": 22.4,
+    "chasse_per_100k": 544.8,
+    "lieux_culte_per_100k": 19.37,
+    "rugby_clubs_per_100k": 7.87,
+    "fast_food_per_100k": 848.17,
+    "ensoleillement_h": 2802.2
   },
   "05": {
     "revenue": 1834,
     "unemployment": 17.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 205.0,
+    "pharmacies_per_100k": 38.3,
+    "sau_pct": 16.9,
+    "chasse_per_100k": 604.54,
+    "lieux_culte_per_100k": 16.21,
+    "rugby_clubs_per_100k": 7.75,
+    "fast_food_per_100k": 1047.52,
+    "ensoleillement_h": 2415.0
   },
   "06": {
     "revenue": 1955,
     "unemployment": 23.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 268.76,
+    "pharmacies_per_100k": 38.32,
+    "sau_pct": 9.4,
+    "chasse_per_100k": 79.61,
+    "lieux_culte_per_100k": 17.82,
+    "rugby_clubs_per_100k": 2.83,
+    "fast_food_per_100k": 834.9,
+    "ensoleillement_h": 2786.9
   },
   "07": {
     "revenue": 1832,
     "unemployment": 22.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 124.01,
+    "pharmacies_per_100k": 28.97,
+    "sau_pct": 28.5,
+    "chasse_per_100k": 4.79,
+    "lieux_culte_per_100k": 27.82,
+    "rugby_clubs_per_100k": 8.97,
+    "fast_food_per_100k": 619.7,
+    "ensoleillement_h": 2168.1
   },
   "08": {
     "revenue": 1738,
     "unemployment": 28.0,
-    "poverty": 19.0
+    "poverty": 19.0,
+    "medecins_per_100k": 111.21,
+    "pharmacies_per_100k": 37.94,
+    "sau_pct": 50.3,
+    "chasse_per_100k": 216.04,
+    "lieux_culte_per_100k": 22.94,
+    "rugby_clubs_per_100k": 2.22,
+    "fast_food_per_100k": 261.4,
+    "ensoleillement_h": 1707.2
   },
   "09": {
     "revenue": 1735,
     "unemployment": 24.0,
-    "poverty": 19.0
+    "poverty": 19.0,
+    "medecins_per_100k": 122.25,
+    "pharmacies_per_100k": 31.05,
+    "sau_pct": 33.4,
+    "chasse_per_100k": 1682.11,
+    "lieux_culte_per_100k": 29.71,
+    "rugby_clubs_per_100k": 39.4,
+    "fast_food_per_100k": 509.8,
+    "ensoleillement_h": 2058.9
   },
   "10": {
     "revenue": 1794,
     "unemployment": 26.0,
-    "poverty": 17.0
+    "poverty": 17.0,
+    "medecins_per_100k": 115.31,
+    "pharmacies_per_100k": 26.02,
+    "sau_pct": 53.5,
+    "chasse_per_100k": 324.82,
+    "lieux_culte_per_100k": 32.1,
+    "rugby_clubs_per_100k": 2.89,
+    "fast_food_per_100k": 297.72,
+    "ensoleillement_h": 1964.1
   },
   "11": {
     "revenue": 1709,
     "unemployment": 28.0,
-    "poverty": 21.0
+    "poverty": 21.0,
+    "medecins_per_100k": 146.8,
+    "pharmacies_per_100k": 35.64,
+    "sau_pct": 34.6,
+    "chasse_per_100k": 253.99,
+    "lieux_culte_per_100k": 25.53,
+    "rugby_clubs_per_100k": 30.85,
+    "fast_food_per_100k": 630.19,
+    "ensoleillement_h": 2274.2
   },
   "12": {
     "revenue": 1822,
     "unemployment": 17.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 122.3,
+    "pharmacies_per_100k": 36.12,
+    "sau_pct": 34.4,
+    "chasse_per_100k": 488.59,
+    "lieux_culte_per_100k": 26.15,
+    "rugby_clubs_per_100k": 19.34,
+    "fast_food_per_100k": 498.92,
+    "ensoleillement_h": 2256.0
   },
   "13": {
     "revenue": 1910,
     "unemployment": 24.0,
-    "poverty": 19.0
+    "poverty": 19.0,
+    "medecins_per_100k": 245.85,
+    "pharmacies_per_100k": 35.25,
+    "sau_pct": 25.8,
+    "chasse_per_100k": 0.39,
+    "lieux_culte_per_100k": 27.28,
+    "rugby_clubs_per_100k": 4.09,
+    "fast_food_per_100k": 489.96,
+    "ensoleillement_h": 3040.1
   },
   "14": {
     "revenue": 1903,
     "unemployment": 21.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 175.56,
+    "pharmacies_per_100k": 28.97,
+    "sau_pct": 55.1,
+    "chasse_per_100k": 19.08,
+    "lieux_culte_per_100k": 26.91,
+    "rugby_clubs_per_100k": 4.41,
+    "fast_food_per_100k": 432.71,
+    "ensoleillement_h": 1865.3
   },
   "15": {
     "revenue": 1809,
     "unemployment": 14.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 143.52,
+    "pharmacies_per_100k": 43.68,
+    "sau_pct": 42.8,
+    "chasse_per_100k": 2562.99,
+    "lieux_culte_per_100k": 24.8,
+    "rugby_clubs_per_100k": 22.74,
+    "fast_food_per_100k": 506.25,
+    "ensoleillement_h": 2100.4
   },
   "16": {
     "revenue": 1833,
     "unemployment": 22.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 116.0,
+    "pharmacies_per_100k": 33.06,
+    "sau_pct": 51.7,
+    "chasse_per_100k": 93.91,
+    "lieux_culte_per_100k": 25.31,
+    "rugby_clubs_per_100k": 10.4,
+    "fast_food_per_100k": 325.57,
+    "ensoleillement_h": 2074.9
   },
   "17": {
     "revenue": 1901,
     "unemployment": 23.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 181.13,
+    "pharmacies_per_100k": 32.05,
+    "sau_pct": 54.9,
+    "chasse_per_100k": 35.08,
+    "lieux_culte_per_100k": 21.96,
+    "rugby_clubs_per_100k": 9.46,
+    "fast_food_per_100k": 509.01,
+    "ensoleillement_h": 2213.0
   },
   "18": {
     "revenue": 1842,
     "unemployment": 24.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 95.8,
+    "pharmacies_per_100k": 32.38,
+    "sau_pct": 62.3,
+    "chasse_per_100k": 617.8,
+    "lieux_culte_per_100k": 24.69,
+    "rugby_clubs_per_100k": 9.22,
+    "fast_food_per_100k": 371.95,
+    "ensoleillement_h": 2034.6
   },
   "19": {
     "revenue": 1845,
     "unemployment": 19.0,
-    "poverty": 14.0
-  },
-  "2A": {
-    "revenue": 1952,
-    "unemployment": 21.0,
-    "poverty": 16.0
-  },
-  "2B": {
-    "revenue": 1788,
-    "unemployment": 22.0,
-    "poverty": 20.0
+    "poverty": 14.0,
+    "medecins_per_100k": 127.2,
+    "pharmacies_per_100k": 37.12,
+    "sau_pct": 29.5,
+    "chasse_per_100k": 1039.83,
+    "lieux_culte_per_100k": 23.6,
+    "rugby_clubs_per_100k": 31.06,
+    "fast_food_per_100k": 436.93,
+    "ensoleillement_h": 1982.7
   },
   "21": {
     "revenue": 1977,
     "unemployment": 19.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 189.17,
+    "pharmacies_per_100k": 29.5,
+    "sau_pct": 45.6,
+    "chasse_per_100k": 325.22,
+    "lieux_culte_per_100k": 24.77,
+    "rugby_clubs_per_100k": 9.64,
+    "fast_food_per_100k": 373.22,
+    "ensoleillement_h": 1926.1
   },
   "22": {
     "revenue": 1889,
     "unemployment": 20.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 122.46,
+    "pharmacies_per_100k": 28.72,
+    "sau_pct": 40.5,
+    "chasse_per_100k": 62.57,
+    "lieux_culte_per_100k": 25.26,
+    "rugby_clubs_per_100k": 3.96,
+    "fast_food_per_100k": 439.97,
+    "ensoleillement_h": 1771.2
   },
   "23": {
     "revenue": 1718,
     "unemployment": 22.0,
-    "poverty": 19.0
+    "poverty": 19.0,
+    "medecins_per_100k": 95.07,
+    "pharmacies_per_100k": 44.94,
+    "sau_pct": 31.4,
+    "chasse_per_100k": 970.02,
+    "lieux_culte_per_100k": 26.45,
+    "rugby_clubs_per_100k": 8.53,
+    "fast_food_per_100k": 435.9,
+    "ensoleillement_h": 1891.4
   },
   "24": {
     "revenue": 1784,
     "unemployment": 24.0,
-    "poverty": 17.0
+    "poverty": 17.0,
+    "medecins_per_100k": 120.61,
+    "pharmacies_per_100k": 32.87,
+    "sau_pct": 32.0,
+    "chasse_per_100k": 691.59,
+    "lieux_culte_per_100k": 23.33,
+    "rugby_clubs_per_100k": 19.0,
+    "fast_food_per_100k": 559.66,
+    "ensoleillement_h": 2087.5
   },
   "25": {
     "revenue": 1991,
     "unemployment": 19.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 174.38,
+    "pharmacies_per_100k": 31.44,
+    "sau_pct": 42.5,
+    "chasse_per_100k": 29.16,
+    "lieux_culte_per_100k": 21.82,
+    "rugby_clubs_per_100k": 7.52,
+    "fast_food_per_100k": 336.28,
+    "ensoleillement_h": 1932.0
   },
   "26": {
     "revenue": 1871,
     "unemployment": 23.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 135.33,
+    "pharmacies_per_100k": 27.91,
+    "sau_pct": 38.6,
+    "chasse_per_100k": 205.18,
+    "lieux_culte_per_100k": 22.11,
+    "rugby_clubs_per_100k": 11.15,
+    "fast_food_per_100k": 488.72,
+    "ensoleillement_h": 2559.7
   },
   "27": {
     "revenue": 1907,
     "unemployment": 24.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 82.65,
+    "pharmacies_per_100k": 22.54,
+    "sau_pct": 64.5,
+    "chasse_per_100k": 187.16,
+    "lieux_culte_per_100k": 23.25,
+    "rugby_clubs_per_100k": 4.01,
+    "fast_food_per_100k": 305.82,
+    "ensoleillement_h": 1799.2
   },
   "28": {
     "revenue": 1947,
     "unemployment": 22.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 95.76,
+    "pharmacies_per_100k": 23.88,
+    "sau_pct": 78.9,
+    "chasse_per_100k": 168.35,
+    "lieux_culte_per_100k": 23.72,
+    "rugby_clubs_per_100k": 4.38,
+    "fast_food_per_100k": 272.52,
+    "ensoleillement_h": 1892.9
   },
   "29": {
     "revenue": 1935,
     "unemployment": 20.0,
-    "poverty": 11.0
+    "poverty": 11.0,
+    "medecins_per_100k": 176.75,
+    "pharmacies_per_100k": 29.3,
+    "sau_pct": 39.5,
+    "chasse_per_100k": 3.09,
+    "lieux_culte_per_100k": 25.27,
+    "rugby_clubs_per_100k": 6.51,
+    "fast_food_per_100k": 386.53,
+    "ensoleillement_h": 1701.0
+  },
+  "2A": {
+    "revenue": 1952,
+    "unemployment": 21.0,
+    "poverty": 16.0,
+    "medecins_per_100k": 198.23,
+    "pharmacies_per_100k": 35.6,
+    "sau_pct": 7.1,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 61.63,
+    "rugby_clubs_per_100k": 3.63,
+    "fast_food_per_100k": 1233.76,
+    "ensoleillement_h": 2712.1
+  },
+  "2B": {
+    "revenue": 1788,
+    "unemployment": 22.0,
+    "poverty": 20.0,
+    "medecins_per_100k": 164.09,
+    "pharmacies_per_100k": 37.37,
+    "sau_pct": 11.1,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 36.02,
+    "rugby_clubs_per_100k": 4.84,
+    "fast_food_per_100k": 926.55,
+    "ensoleillement_h": 2495.1
   },
   "30": {
     "revenue": 1778,
     "unemployment": 29.0,
-    "poverty": 20.0
+    "poverty": 20.0,
+    "medecins_per_100k": 155.31,
+    "pharmacies_per_100k": 30.67,
+    "sau_pct": 39.2,
+    "chasse_per_100k": 42.09,
+    "lieux_culte_per_100k": 24.3,
+    "rugby_clubs_per_100k": 3.98,
+    "fast_food_per_100k": 566.26,
+    "ensoleillement_h": 2774.2
   },
   "31": {
     "revenue": 2019,
     "unemployment": 22.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 221.77,
+    "pharmacies_per_100k": 27.54,
+    "sau_pct": 49.1,
+    "chasse_per_100k": 155.51,
+    "lieux_culte_per_100k": 26.66,
+    "rugby_clubs_per_100k": 16.57,
+    "fast_food_per_100k": 366.86,
+    "ensoleillement_h": 2179.9
   },
   "32": {
     "revenue": 1842,
     "unemployment": 21.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 116.92,
+    "pharmacies_per_100k": 32.22,
+    "sau_pct": 67.0,
+    "chasse_per_100k": 13.11,
+    "lieux_culte_per_100k": 24.12,
+    "rugby_clubs_per_100k": 41.96,
+    "fast_food_per_100k": 403.66,
+    "ensoleillement_h": 2074.3
   },
   "33": {
     "revenue": 1996,
     "unemployment": 22.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 240.79,
+    "pharmacies_per_100k": 30.57,
+    "sau_pct": 28.2,
+    "chasse_per_100k": 132.96,
+    "lieux_culte_per_100k": 26.93,
+    "rugby_clubs_per_100k": 8.26,
+    "fast_food_per_100k": 417.89,
+    "ensoleillement_h": 2098.1
   },
   "34": {
     "revenue": 1817,
     "unemployment": 29.0,
-    "poverty": 19.0
+    "poverty": 19.0,
+    "medecins_per_100k": 234.72,
+    "pharmacies_per_100k": 31.62,
+    "sau_pct": 28.8,
+    "chasse_per_100k": 12.52,
+    "lieux_culte_per_100k": 27.25,
+    "rugby_clubs_per_100k": 11.5,
+    "fast_food_per_100k": 680.42,
+    "ensoleillement_h": 2827.0
   },
   "35": {
     "revenue": 1974,
     "unemployment": 18.0,
-    "poverty": 11.0
+    "poverty": 11.0,
+    "medecins_per_100k": 171.99,
+    "pharmacies_per_100k": 25.86,
+    "sau_pct": 58.5,
+    "chasse_per_100k": 6.91,
+    "lieux_culte_per_100k": 24.8,
+    "rugby_clubs_per_100k": 3.13,
+    "fast_food_per_100k": 371.42,
+    "ensoleillement_h": 1884.5
   },
   "36": {
     "revenue": 1772,
     "unemployment": 22.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 91.15,
+    "pharmacies_per_100k": 36.37,
+    "sau_pct": 66.5,
+    "chasse_per_100k": 1143.48,
+    "lieux_culte_per_100k": 24.48,
+    "rugby_clubs_per_100k": 8.9,
+    "fast_food_per_100k": 372.0,
+    "ensoleillement_h": 2046.6
   },
   "37": {
     "revenue": 1928,
     "unemployment": 22.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 193.58,
+    "pharmacies_per_100k": 30.55,
+    "sau_pct": 51.7,
+    "chasse_per_100k": 626.52,
+    "lieux_culte_per_100k": 24.59,
+    "rugby_clubs_per_100k": 4.89,
+    "fast_food_per_100k": 344.72,
+    "ensoleillement_h": 2052.2
   },
   "38": {
     "revenue": 2022,
     "unemployment": 20.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 160.01,
+    "pharmacies_per_100k": 27.94,
+    "sau_pct": 34.7,
+    "chasse_per_100k": 93.96,
+    "lieux_culte_per_100k": 22.41,
+    "rugby_clubs_per_100k": 10.5,
+    "fast_food_per_100k": 457.63,
+    "ensoleillement_h": 2157.0
   },
   "39": {
     "revenue": 1928,
     "unemployment": 17.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 122.22,
+    "pharmacies_per_100k": 32.88,
+    "sau_pct": 43.7,
+    "chasse_per_100k": 376.89,
+    "lieux_culte_per_100k": 24.15,
+    "rugby_clubs_per_100k": 11.89,
+    "fast_food_per_100k": 388.08,
+    "ensoleillement_h": 1967.6
   },
   "40": {
     "revenue": 1903,
     "unemployment": 23.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 165.26,
+    "pharmacies_per_100k": 30.73,
+    "sau_pct": 25.7,
+    "chasse_per_100k": 348.78,
+    "lieux_culte_per_100k": 21.12,
+    "rugby_clubs_per_100k": 30.4,
+    "fast_food_per_100k": 541.89,
+    "ensoleillement_h": 2140.6
   },
   "41": {
     "revenue": 1876,
     "unemployment": 21.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 120.24,
+    "pharmacies_per_100k": 28.61,
+    "sau_pct": 54.9,
+    "chasse_per_100k": 845.06,
+    "lieux_culte_per_100k": 23.8,
+    "rugby_clubs_per_100k": 6.25,
+    "fast_food_per_100k": 334.85,
+    "ensoleillement_h": 1995.6
   },
   "42": {
     "revenue": 1831,
     "unemployment": 22.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 154.87,
+    "pharmacies_per_100k": 26.14,
+    "sau_pct": 47.1,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 24.64,
+    "rugby_clubs_per_100k": 3.01,
+    "fast_food_per_100k": 413.78,
+    "ensoleillement_h": 2068.4
   },
   "43": {
     "revenue": 1842,
     "unemployment": 16.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 132.43,
+    "pharmacies_per_100k": 34.32,
+    "sau_pct": 44.7,
+    "chasse_per_100k": 505.2,
+    "lieux_culte_per_100k": 24.22,
+    "rugby_clubs_per_100k": 8.37,
+    "fast_food_per_100k": 468.58,
+    "ensoleillement_h": 2090.9
   },
   "44": {
     "revenue": 2010,
     "unemployment": 18.0,
-    "poverty": 11.0
+    "poverty": 11.0,
+    "medecins_per_100k": 178.56,
+    "pharmacies_per_100k": 26.14,
+    "sau_pct": 46.9,
+    "chasse_per_100k": 7.01,
+    "lieux_culte_per_100k": 26.99,
+    "rugby_clubs_per_100k": 3.4,
+    "fast_food_per_100k": 356.31,
+    "ensoleillement_h": 2072.0
   },
   "45": {
     "revenue": 1924,
     "unemployment": 23.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 122.41,
+    "pharmacies_per_100k": 24.69,
+    "sau_pct": 74.7,
+    "chasse_per_100k": 287.31,
+    "lieux_culte_per_100k": 26.05,
+    "rugby_clubs_per_100k": 3.35,
+    "fast_food_per_100k": 303.55,
+    "ensoleillement_h": 1984.2
   },
   "46": {
     "revenue": 1826,
     "unemployment": 23.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 102.89,
+    "pharmacies_per_100k": 32.01,
+    "sau_pct": 47.9,
+    "chasse_per_100k": 187.74,
+    "lieux_culte_per_100k": 26.74,
+    "rugby_clubs_per_100k": 22.19,
+    "fast_food_per_100k": 572.41,
+    "ensoleillement_h": 2100.7
   },
   "47": {
     "revenue": 1754,
     "unemployment": 23.0,
-    "poverty": 18.0
+    "poverty": 18.0,
+    "medecins_per_100k": 109.29,
+    "pharmacies_per_100k": 33.81,
+    "sau_pct": 52.3,
+    "chasse_per_100k": 101.89,
+    "lieux_culte_per_100k": 25.62,
+    "rugby_clubs_per_100k": 33.28,
+    "fast_food_per_100k": 396.69,
+    "ensoleillement_h": 2177.1
   },
   "48": {
     "revenue": 1798,
     "unemployment": 17.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 100.63,
+    "pharmacies_per_100k": 43.13,
+    "sau_pct": 38.2,
+    "chasse_per_100k": 2567.85,
+    "lieux_culte_per_100k": 27.41,
+    "rugby_clubs_per_100k": 14.36,
+    "fast_food_per_100k": 639.47,
+    "ensoleillement_h": 2195.3
   },
   "49": {
     "revenue": 1875,
     "unemployment": 19.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 170.11,
+    "pharmacies_per_100k": 27.4,
+    "sau_pct": 54.9,
+    "chasse_per_100k": 65.19,
+    "lieux_culte_per_100k": 26.68,
+    "rugby_clubs_per_100k": 4.02,
+    "fast_food_per_100k": 302.38,
+    "ensoleillement_h": 2023.8
   },
   "50": {
     "revenue": 1873,
     "unemployment": 17.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 112.21,
+    "pharmacies_per_100k": 26.64,
+    "sau_pct": 60.8,
+    "chasse_per_100k": 4.36,
+    "lieux_culte_per_100k": 26.96,
+    "rugby_clubs_per_100k": 3.17,
+    "fast_food_per_100k": 343.55,
+    "ensoleillement_h": 1673.9
   },
   "51": {
     "revenue": 1902,
     "unemployment": 23.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 170.18,
+    "pharmacies_per_100k": 31.13,
+    "sau_pct": 67.5,
+    "chasse_per_100k": 425.58,
+    "lieux_culte_per_100k": 27.31,
+    "rugby_clubs_per_100k": 4.2,
+    "fast_food_per_100k": 273.46,
+    "ensoleillement_h": 1799.6
   },
   "52": {
     "revenue": 1779,
     "unemployment": 22.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 108.75,
+    "pharmacies_per_100k": 33.33,
+    "sau_pct": 58.6,
+    "chasse_per_100k": 602.52,
+    "lieux_culte_per_100k": 25.34,
+    "rugby_clubs_per_100k": 2.25,
+    "fast_food_per_100k": 235.43,
+    "ensoleillement_h": 1886.2
   },
   "53": {
     "revenue": 1852,
     "unemployment": 15.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 93.48,
+    "pharmacies_per_100k": 25.82,
+    "sau_pct": 63.0,
+    "chasse_per_100k": 66.35,
+    "lieux_culte_per_100k": 26.67,
+    "rugby_clubs_per_100k": 2.93,
+    "fast_food_per_100k": 265.15,
+    "ensoleillement_h": 1949.3
   },
   "54": {
     "revenue": 1918,
     "unemployment": 22.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 185.53,
+    "pharmacies_per_100k": 34.13,
+    "sau_pct": 55.9,
+    "chasse_per_100k": 99.86,
+    "lieux_culte_per_100k": 24.6,
+    "rugby_clubs_per_100k": 3.72,
+    "fast_food_per_100k": 272.99,
+    "ensoleillement_h": 1895.3
   },
   "55": {
     "revenue": 1824,
     "unemployment": 22.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 106.09,
+    "pharmacies_per_100k": 29.68,
+    "sau_pct": 56.6,
+    "chasse_per_100k": 852.19,
+    "lieux_culte_per_100k": 23.03,
+    "rugby_clubs_per_100k": 8.03,
+    "fast_food_per_100k": 256.91,
+    "ensoleillement_h": 1846.1
   },
   "56": {
     "revenue": 1928,
     "unemployment": 19.0,
-    "poverty": 11.0
+    "poverty": 11.0,
+    "medecins_per_100k": 171.07,
+    "pharmacies_per_100k": 29.14,
+    "sau_pct": 43.0,
+    "chasse_per_100k": 39.26,
+    "lieux_culte_per_100k": 26.26,
+    "rugby_clubs_per_100k": 8.31,
+    "fast_food_per_100k": 449.6,
+    "ensoleillement_h": 1994.2
   },
   "57": {
     "revenue": 1915,
     "unemployment": 23.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 135.44,
+    "pharmacies_per_100k": 24.38,
+    "sau_pct": 62.1,
+    "chasse_per_100k": 95.93,
+    "lieux_culte_per_100k": 32.49,
+    "rugby_clubs_per_100k": 2.49,
+    "fast_food_per_100k": 272.77,
+    "ensoleillement_h": 1877.8
   },
   "58": {
     "revenue": 1782,
     "unemployment": 22.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 105.72,
+    "pharmacies_per_100k": 34.09,
+    "sau_pct": 55.9,
+    "chasse_per_100k": 373.83,
+    "lieux_culte_per_100k": 23.33,
+    "rugby_clubs_per_100k": 6.19,
+    "fast_food_per_100k": 384.83,
+    "ensoleillement_h": 1995.1
   },
   "59": {
     "revenue": 1778,
     "unemployment": 29.0,
-    "poverty": 20.0
+    "poverty": 20.0,
+    "medecins_per_100k": 161.87,
+    "pharmacies_per_100k": 32.86,
+    "sau_pct": 68.2,
+    "chasse_per_100k": 4.75,
+    "lieux_culte_per_100k": 29.09,
+    "rugby_clubs_per_100k": 2.37,
+    "fast_food_per_100k": 275.04,
+    "ensoleillement_h": 1801.5
   },
   "60": {
     "revenue": 1944,
     "unemployment": 25.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 109.91,
+    "pharmacies_per_100k": 25.1,
+    "sau_pct": 66.7,
+    "chasse_per_100k": 125.05,
+    "lieux_culte_per_100k": 24.71,
+    "rugby_clubs_per_100k": 3.16,
+    "fast_food_per_100k": 246.25,
+    "ensoleillement_h": 1824.1
   },
   "61": {
     "revenue": 1783,
     "unemployment": 21.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 89.9,
+    "pharmacies_per_100k": 29.61,
+    "sau_pct": 54.9,
+    "chasse_per_100k": 558.87,
+    "lieux_culte_per_100k": 25.79,
+    "rugby_clubs_per_100k": 5.3,
+    "fast_food_per_100k": 357.04,
+    "ensoleillement_h": 1877.5
   },
   "62": {
     "revenue": 1727,
     "unemployment": 29.0,
-    "poverty": 18.0
+    "poverty": 18.0,
+    "medecins_per_100k": 130.97,
+    "pharmacies_per_100k": 32.16,
+    "sau_pct": 64.9,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 26.96,
+    "rugby_clubs_per_100k": 3.34,
+    "fast_food_per_100k": 229.22,
+    "ensoleillement_h": 1791.9
   },
   "63": {
     "revenue": 1922,
     "unemployment": 21.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 177.27,
+    "pharmacies_per_100k": 32.92,
+    "sau_pct": 33.9,
+    "chasse_per_100k": 89.57,
+    "lieux_culte_per_100k": 27.55,
+    "rugby_clubs_per_100k": 17.01,
+    "fast_food_per_100k": 407.21,
+    "ensoleillement_h": 1871.4
   },
   "64": {
     "revenue": 1942,
     "unemployment": 21.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 250.5,
+    "pharmacies_per_100k": 33.76,
+    "sau_pct": 37.9,
+    "chasse_per_100k": 39.74,
+    "lieux_culte_per_100k": 33.58,
+    "rugby_clubs_per_100k": 29.91,
+    "fast_food_per_100k": 487.3,
+    "ensoleillement_h": 1885.9
   },
   "65": {
     "revenue": 1794,
     "unemployment": 22.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 143.75,
+    "pharmacies_per_100k": 35.5,
+    "sau_pct": 43.9,
+    "chasse_per_100k": 1163.89,
+    "lieux_culte_per_100k": 25.26,
+    "rugby_clubs_per_100k": 28.75,
+    "fast_food_per_100k": 554.39,
+    "ensoleillement_h": 1907.2
   },
   "66": {
     "revenue": 1721,
     "unemployment": 33.0,
-    "poverty": 21.0
+    "poverty": 21.0,
+    "medecins_per_100k": 194.54,
+    "pharmacies_per_100k": 34.68,
+    "sau_pct": 27.6,
+    "chasse_per_100k": 404.42,
+    "lieux_culte_per_100k": 26.41,
+    "rugby_clubs_per_100k": 21.25,
+    "fast_food_per_100k": 713.18,
+    "ensoleillement_h": 2525.2
   },
   "67": {
     "revenue": 2008,
     "unemployment": 20.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 214.89,
+    "pharmacies_per_100k": 23.68,
+    "sau_pct": 56.0,
+    "chasse_per_100k": 174.86,
+    "lieux_culte_per_100k": 34.78,
+    "rugby_clubs_per_100k": 2.08,
+    "fast_food_per_100k": 425.78,
+    "ensoleillement_h": 1902.3
   },
   "68": {
     "revenue": 2039,
     "unemployment": 22.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 153.44,
+    "pharmacies_per_100k": 24.25,
+    "sau_pct": 44.4,
+    "chasse_per_100k": 242.43,
+    "lieux_culte_per_100k": 35.02,
+    "rugby_clubs_per_100k": 1.69,
+    "fast_food_per_100k": 384.16,
+    "ensoleillement_h": 2062.9
   },
   "69": {
     "revenue": 2040,
     "unemployment": 20.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 220.36,
+    "pharmacies_per_100k": 27.57,
+    "sau_pct": 34.6,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 34.66,
+    "rugby_clubs_per_100k": 4.1,
+    "fast_food_per_100k": 488.17,
+    "ensoleillement_h": 2056.6
   },
   "70": {
     "revenue": 1822,
     "unemployment": 20.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 106.7,
+    "pharmacies_per_100k": 35.0,
+    "sau_pct": 49.5,
+    "chasse_per_100k": 349.87,
+    "lieux_culte_per_100k": 24.03,
+    "rugby_clubs_per_100k": 4.64,
+    "fast_food_per_100k": 289.92,
+    "ensoleillement_h": 1843.1
   },
   "71": {
     "revenue": 1848,
     "unemployment": 20.0,
-    "poverty": 13.0
+    "poverty": 13.0,
+    "medecins_per_100k": 120.34,
+    "pharmacies_per_100k": 30.95,
+    "sau_pct": 61.9,
+    "chasse_per_100k": 1.61,
+    "lieux_culte_per_100k": 24.67,
+    "rugby_clubs_per_100k": 11.8,
+    "fast_food_per_100k": 404.68,
+    "ensoleillement_h": 1925.7
   },
   "72": {
     "revenue": 1852,
     "unemployment": 21.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 111.12,
+    "pharmacies_per_100k": 25.79,
+    "sau_pct": 59.9,
+    "chasse_per_100k": 213.96,
+    "lieux_culte_per_100k": 22.99,
+    "rugby_clubs_per_100k": 3.18,
+    "fast_food_per_100k": 283.75,
+    "ensoleillement_h": 1932.0
   },
   "73": {
     "revenue": 2022,
     "unemployment": 15.0,
-    "poverty": 11.0
+    "poverty": 11.0,
+    "medecins_per_100k": 196.62,
+    "pharmacies_per_100k": 31.64,
+    "sau_pct": 21.1,
+    "chasse_per_100k": 464.86,
+    "lieux_culte_per_100k": 21.12,
+    "rugby_clubs_per_100k": 5.22,
+    "fast_food_per_100k": 860.19,
+    "ensoleillement_h": 1999.4
   },
   "74": {
     "revenue": 2343,
     "unemployment": 16.0,
-    "poverty": 10.0
+    "poverty": 10.0,
+    "medecins_per_100k": 163.05,
+    "pharmacies_per_100k": 26.03,
+    "sau_pct": 26.0,
+    "chasse_per_100k": 227.71,
+    "lieux_culte_per_100k": 21.59,
+    "rugby_clubs_per_100k": 4.46,
+    "fast_food_per_100k": 607.36,
+    "ensoleillement_h": 1951.5
   },
   "75": {
     "revenue": 2478,
     "unemployment": 18.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 359.57,
+    "pharmacies_per_100k": 40.04,
+    "sau_pct": 1.9,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 26.01,
+    "rugby_clubs_per_100k": 1.25,
+    "fast_food_per_100k": 462.75,
+    "ensoleillement_h": 1872.8
   },
   "76": {
     "revenue": 1862,
     "unemployment": 25.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 160.76,
+    "pharmacies_per_100k": 26.51,
+    "sau_pct": 52.9,
+    "chasse_per_100k": 44.59,
+    "lieux_culte_per_100k": 28.75,
+    "rugby_clubs_per_100k": 2.61,
+    "fast_food_per_100k": 319.38,
+    "ensoleillement_h": 1790.2
   },
   "77": {
     "revenue": 2053,
     "unemployment": 22.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 105.76,
+    "pharmacies_per_100k": 23.99,
+    "sau_pct": 76.3,
+    "chasse_per_100k": 42.43,
+    "lieux_culte_per_100k": 25.61,
+    "rugby_clubs_per_100k": 3.21,
+    "fast_food_per_100k": 311.33,
+    "ensoleillement_h": 1882.0
   },
   "78": {
     "revenue": 2344,
     "unemployment": 20.0,
-    "poverty": 11.0
+    "poverty": 11.0,
+    "medecins_per_100k": 141.86,
+    "pharmacies_per_100k": 24.58,
+    "sau_pct": 50.5,
+    "chasse_per_100k": 70.27,
+    "lieux_culte_per_100k": 24.0,
+    "rugby_clubs_per_100k": 4.68,
+    "fast_food_per_100k": 339.08,
+    "ensoleillement_h": 1806.6
   },
   "79": {
     "revenue": 1852,
     "unemployment": 18.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 109.72,
+    "pharmacies_per_100k": 30.97,
+    "sau_pct": 63.4,
+    "chasse_per_100k": 36.61,
+    "lieux_culte_per_100k": 24.14,
+    "rugby_clubs_per_100k": 3.98,
+    "fast_food_per_100k": 258.49,
+    "ensoleillement_h": 2037.1
   },
   "80": {
     "revenue": 1797,
     "unemployment": 27.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 170.77,
+    "pharmacies_per_100k": 32.14,
+    "sau_pct": 70.7,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 25.12,
+    "rugby_clubs_per_100k": 2.81,
+    "fast_food_per_100k": 239.58,
+    "ensoleillement_h": 1803.3
   },
   "81": {
     "revenue": 1811,
     "unemployment": 25.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 140.51,
+    "pharmacies_per_100k": 31.51,
+    "sau_pct": 47.5,
+    "chasse_per_100k": 203.35,
+    "lieux_culte_per_100k": 26.16,
+    "rugby_clubs_per_100k": 27.46,
+    "fast_food_per_100k": 334.37,
+    "ensoleillement_h": 2195.7
   },
   "82": {
     "revenue": 1793,
     "unemployment": 25.0,
-    "poverty": 17.0
+    "poverty": 17.0,
+    "medecins_per_100k": 139.34,
+    "pharmacies_per_100k": 26.58,
+    "sau_pct": 69.5,
+    "chasse_per_100k": 139.52,
+    "lieux_culte_per_100k": 23.83,
+    "rugby_clubs_per_100k": 25.75,
+    "fast_food_per_100k": 337.98,
+    "ensoleillement_h": 2176.0
   },
   "83": {
     "revenue": 1927,
     "unemployment": 25.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 196.93,
+    "pharmacies_per_100k": 32.59,
+    "sau_pct": 22.9,
+    "chasse_per_100k": 2.67,
+    "lieux_culte_per_100k": 22.82,
+    "rugby_clubs_per_100k": 6.63,
+    "fast_food_per_100k": 736.03,
+    "ensoleillement_h": 2913.3
   },
   "84": {
     "revenue": 1781,
     "unemployment": 27.0,
-    "poverty": 20.0
+    "poverty": 20.0,
+    "medecins_per_100k": 174.65,
+    "pharmacies_per_100k": 33.83,
+    "sau_pct": 44.1,
+    "chasse_per_100k": 16.04,
+    "lieux_culte_per_100k": 24.4,
+    "rugby_clubs_per_100k": 7.49,
+    "fast_food_per_100k": 599.64,
+    "ensoleillement_h": 2906.4
   },
   "85": {
     "revenue": 1899,
     "unemployment": 16.0,
-    "poverty": 9.0
+    "poverty": 9.0,
+    "medecins_per_100k": 108.94,
+    "pharmacies_per_100k": 29.45,
+    "sau_pct": 53.6,
+    "chasse_per_100k": 10.63,
+    "lieux_culte_per_100k": 24.18,
+    "rugby_clubs_per_100k": 3.93,
+    "fast_food_per_100k": 383.68,
+    "ensoleillement_h": 2154.4
   },
   "86": {
     "revenue": 1852,
     "unemployment": 22.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 153.4,
+    "pharmacies_per_100k": 30.95,
+    "sau_pct": 56.4,
+    "chasse_per_100k": 666.21,
+    "lieux_culte_per_100k": 22.61,
+    "rugby_clubs_per_100k": 6.17,
+    "fast_food_per_100k": 298.86,
+    "ensoleillement_h": 1986.7
   },
   "87": {
     "revenue": 1845,
     "unemployment": 24.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 178.64,
+    "pharmacies_per_100k": 37.67,
+    "sau_pct": 40.6,
+    "chasse_per_100k": 279.61,
+    "lieux_culte_per_100k": 25.03,
+    "rugby_clubs_per_100k": 11.84,
+    "fast_food_per_100k": 354.03,
+    "ensoleillement_h": 1950.0
   },
   "88": {
     "revenue": 1796,
     "unemployment": 23.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 112.84,
+    "pharmacies_per_100k": 34.66,
+    "sau_pct": 41.1,
+    "chasse_per_100k": 527.17,
+    "lieux_culte_per_100k": 23.61,
+    "rugby_clubs_per_100k": 2.68,
+    "fast_food_per_100k": 317.74,
+    "ensoleillement_h": 1895.4
   },
   "89": {
     "revenue": 1828,
     "unemployment": 24.0,
-    "poverty": 15.0
+    "poverty": 15.0,
+    "medecins_per_100k": 109.48,
+    "pharmacies_per_100k": 28.8,
+    "sau_pct": 54.5,
+    "chasse_per_100k": 167.99,
+    "lieux_culte_per_100k": 24.51,
+    "rugby_clubs_per_100k": 7.17,
+    "fast_food_per_100k": 334.62,
+    "ensoleillement_h": 1920.3
   },
   "90": {
     "revenue": 1910,
     "unemployment": 23.0,
-    "poverty": 16.0
+    "poverty": 16.0,
+    "medecins_per_100k": 156.1,
+    "pharmacies_per_100k": 31.51,
+    "sau_pct": 31.9,
+    "chasse_per_100k": 5.49,
+    "lieux_culte_per_100k": 26.24,
+    "rugby_clubs_per_100k": 1.83,
+    "fast_food_per_100k": 274.23,
+    "ensoleillement_h": 1835.0
   },
   "91": {
     "revenue": 2087,
     "unemployment": 21.0,
-    "poverty": 14.0
+    "poverty": 14.0,
+    "medecins_per_100k": 125.21,
+    "pharmacies_per_100k": 24.36,
+    "sau_pct": 77.3,
+    "chasse_per_100k": 12.67,
+    "lieux_culte_per_100k": 25.56,
+    "rugby_clubs_per_100k": 5.91,
+    "fast_food_per_100k": 285.57,
+    "ensoleillement_h": 1875.9
   },
   "92": {
     "revenue": 2477,
     "unemployment": 20.0,
-    "poverty": 12.0
+    "poverty": 12.0,
+    "medecins_per_100k": 169.51,
+    "pharmacies_per_100k": 27.03,
+    "sau_pct": 2.3,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 25.75,
+    "rugby_clubs_per_100k": 3.16,
+    "fast_food_per_100k": 556.12,
+    "ensoleillement_h": 1835.0
   },
   "93": {
     "revenue": 1585,
     "unemployment": 28.0,
-    "poverty": 28.0
+    "poverty": 28.0,
+    "medecins_per_100k": 103.32,
+    "pharmacies_per_100k": 23.19,
+    "sau_pct": 3.0,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 31.05,
+    "rugby_clubs_per_100k": 2.94,
+    "fast_food_per_100k": 447.5,
+    "ensoleillement_h": 1835.0
   },
   "94": {
     "revenue": 2022,
     "unemployment": 22.0,
-    "poverty": 17.0
+    "poverty": 17.0,
+    "medecins_per_100k": 136.93,
+    "pharmacies_per_100k": 26.0,
+    "sau_pct": 6.5,
+    "chasse_per_100k": 0.0,
+    "lieux_culte_per_100k": 25.65,
+    "rugby_clubs_per_100k": 2.88,
+    "fast_food_per_100k": 408.07,
+    "ensoleillement_h": 1835.0
   },
   "95": {
     "revenue": 1941,
     "unemployment": 24.0,
-    "poverty": 18.0
+    "poverty": 18.0,
+    "medecins_per_100k": 115.39,
+    "pharmacies_per_100k": 24.91,
+    "sau_pct": 59.2,
+    "chasse_per_100k": 7.86,
+    "lieux_culte_per_100k": 24.85,
+    "rugby_clubs_per_100k": 2.97,
+    "fast_food_per_100k": 284.36,
+    "ensoleillement_h": 1737.9
   }
 }

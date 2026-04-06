@@ -9,6 +9,7 @@ import { useLocale } from "next-intl";
 import YearSelector from "@/components/Controls/YearSelector";
 import TourSelector from "@/components/Controls/TourSelector";
 import CandidateBar from "@/components/Controls/CandidateBar";
+import IndicatorSelector, { Indicator } from "@/components/Controls/IndicatorSelector";
 import LanguageSwitcher from "@/components/UI/LanguageSwitcher";
 import NationalResults from "@/components/Charts/NationalResults";
 import DeptPanel from "@/components/Map/DeptPanel";
@@ -53,8 +54,8 @@ export default function ExplorePage() {
   const [selectedCandidate, setSelectedCandidate] = useState<string | null>(null);
   const [selectedDept, setSelectedDept] = useState<DeptResult | null>(null);
 
-  const [socioeco, setSocioeco] = useState<Record<string, { revenue: number; unemployment: number; poverty: number }>>({});
-  const [indicator, setIndicator] = useState<"revenue" | "unemployment" | "poverty">("revenue");
+  const [socioeco, setSocioeco] = useState<Record<string, Record<string, number>>>({});
+  const [indicator, setIndicator] = useState<Indicator>("revenue");
 
   const [sidebarTab, setSidebarTab] = useState<"controls" | "results">("controls");
   const [showTimeline, setShowTimeline] = useState(false);
@@ -310,22 +311,33 @@ export default function ExplorePage() {
                     />
                   </div>
 
-                  {/* Sélecteur indicateur inline */}
-                  <div className="shrink-0 border-t border-white/5 px-3 py-2 flex gap-2">
-                    {(["revenue", "unemployment", "poverty"] as const).map((ind) => {
-                      const labels = { revenue: "💶 Revenu", unemployment: "📊 Chômage", poverty: "📉 Pauvreté" };
+                  {/* Sélecteur indicateur inline — scroll horizontal */}
+                  <div className="shrink-0 border-t border-white/5 px-3 py-2 flex gap-1.5 overflow-x-auto scrollbar-hide">
+                    {([
+                      ["revenue",            "💶"],
+                      ["unemployment",       "📊"],
+                      ["poverty",            "📉"],
+                      ["medecins_per_100k",  "👨‍⚕️"],
+                      ["pharmacies_per_100k","💊"],
+                      ["sau_pct",            "🚜"],
+                      ["chasse_per_100k",    "🎯"],
+                      ["lieux_culte_per_100k","⛪"],
+                      ["rugby_clubs_per_100k","🏈"],
+                      ["fast_food_per_100k", "🍔"],
+                      ["ensoleillement_h",   "☀️"],
+                    ] as [Indicator, string][]).map(([ind, icon]) => {
                       const isActive = indicator === ind;
                       return (
                         <button
                           key={ind}
                           onClick={() => setIndicator(ind)}
-                          className={`flex-1 text-[10px] font-semibold py-1.5 px-2 rounded-lg transition-all ${
+                          className={`shrink-0 text-[11px] font-semibold py-1.5 px-2.5 rounded-lg transition-all ${
                             isActive
                               ? "bg-blue-600/20 text-blue-300 ring-1 ring-blue-500/30"
                               : "glass text-gray-500 hover:text-gray-300"
                           }`}
                         >
-                          {labels[ind]}
+                          {icon}
                         </button>
                       );
                     })}

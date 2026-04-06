@@ -26,7 +26,15 @@
       "none": "None",
       "revenue": "Median income",
       "unemployment": "Unemployment rate",
-      "poverty": "Poverty rate"
+      "poverty": "Poverty rate",
+      "medecins_per_100k": "Doctors / 100k inh.",
+      "pharmacies_per_100k": "Pharmacies / 100k inh.",
+      "sau_pct": "Agricultural land (%)",
+      "chasse_per_100k": "Hunting bags / 100k",
+      "lieux_culte_per_100k": "Places of worship / 100k",
+      "rugby_clubs_per_100k": "Rugby clubs / 100k",
+      "fast_food_per_100k": "Fast-food / 100k inh.",
+      "ensoleillement_h": "Sunshine (h/year)"
     },
     "mapTitle": "Results by département",
     "scatterTitle": "Socioeconomic correlation",

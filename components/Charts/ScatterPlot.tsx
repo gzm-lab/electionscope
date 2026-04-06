@@ -8,15 +8,37 @@ import { Indicator } from "@/components/Controls/IndicatorSelector";
 
 interface ScatterPlotProps {
   results: DeptResult[];
-  socioeco: Record<string, { revenue: number; unemployment: number; poverty: number }>;
+  socioeco: Record<string, Record<string, number>>;
   selectedCandidate: string;
   indicator: Indicator;
 }
 
 const INDICATOR_LABELS: Record<Indicator, string> = {
-  revenue: "Revenu médian (€/mois)",
-  unemployment: "Taux de chômage (%)",
-  poverty: "Taux de pauvreté (%)",
+  revenue:              "Revenu médian (€/mois)",
+  unemployment:         "Taux de chômage (%)",
+  poverty:              "Taux de pauvreté (%)",
+  medecins_per_100k:    "Médecins / 100k hab.",
+  pharmacies_per_100k:  "Pharmacies / 100k hab.",
+  sau_pct:              "Surface agricole (%)",
+  chasse_per_100k:      "Tableaux de chasse / 100k",
+  lieux_culte_per_100k: "Lieux de culte / 100k",
+  rugby_clubs_per_100k: "Clubs de rugby / 100k",
+  fast_food_per_100k:   "Fast-foods / 100k hab.",
+  ensoleillement_h:     "Ensoleillement (h/an)",
+};
+
+const INDICATOR_FORMAT: Record<Indicator, (v: number) => string> = {
+  revenue:              (v) => `${v.toLocaleString("fr-FR")} €`,
+  unemployment:         (v) => `${v.toFixed(1)} %`,
+  poverty:              (v) => `${v.toFixed(1)} %`,
+  medecins_per_100k:    (v) => `${v.toFixed(1)}`,
+  pharmacies_per_100k:  (v) => `${v.toFixed(1)}`,
+  sau_pct:              (v) => `${v.toFixed(1)} %`,
+  chasse_per_100k:      (v) => `${v.toFixed(0)}`,
+  lieux_culte_per_100k: (v) => `${v.toFixed(1)}`,
+  rugby_clubs_per_100k: (v) => `${v.toFixed(1)}`,
+  fast_food_per_100k:   (v) => `${v.toFixed(0)}`,
+  ensoleillement_h:     (v) => `${v.toFixed(0)} h`,
 };
 
 export default function ScatterPlot({ results, socioeco, selectedCandidate, indicator }: ScatterPlotProps) {
@@ -140,9 +162,7 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
           .html(`
             <div class="font-semibold text-white text-xs mb-1">${d.name}</div>
             <div class="text-xs" style="color:${color}">${selectedCandidate}: <strong>${d.y.toFixed(1)}%</strong></div>
-            <div class="text-xs text-gray-400">${INDICATOR_LABELS[indicator].split(" (")[0]}: ${
-              indicator === "revenue" ? `${d.x.toLocaleString("fr-FR")} €` : `${d.x}%`
-            }</div>
+            <div class="text-xs text-gray-400">${INDICATOR_LABELS[indicator].split(" (")[0]}: ${INDICATOR_FORMAT[indicator](d.x)}</div>
           `);
       })
       .on("mousemove", function (event) {

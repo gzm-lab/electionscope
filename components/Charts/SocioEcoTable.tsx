@@ -6,15 +6,23 @@ import { Indicator } from "@/components/Controls/IndicatorSelector";
 
 interface SocioEcoTableProps {
   results: DeptResult[];
-  socioeco: Record<string, { revenue: number; unemployment: number; poverty: number }>;
+  socioeco: Record<string, Record<string, number>>;
   selectedCandidate: string;
   indicator: Indicator;
 }
 
-const INDICATOR_CONFIG = {
-  revenue:      { label: "Revenu médian", unit: "€/mois", format: (v: number) => v.toLocaleString("fr-FR") + " €" },
-  unemployment: { label: "Chômage",       unit: "%",      format: (v: number) => v.toFixed(1) + "%" },
-  poverty:      { label: "Pauvreté",      unit: "%",      format: (v: number) => v.toFixed(1) + "%" },
+const INDICATOR_CONFIG: Record<Indicator, { label: string; unit: string; format: (v: number) => string }> = {
+  revenue:              { label: "Revenu médian",        unit: "€/mois", format: (v) => v.toLocaleString("fr-FR") + " €" },
+  unemployment:         { label: "Chômage",              unit: "%",      format: (v) => v.toFixed(1) + "%" },
+  poverty:              { label: "Pauvreté",             unit: "%",      format: (v) => v.toFixed(1) + "%" },
+  medecins_per_100k:    { label: "Médecins",             unit: "/100k",  format: (v) => v.toFixed(1) },
+  pharmacies_per_100k:  { label: "Pharmacies",           unit: "/100k",  format: (v) => v.toFixed(1) },
+  sau_pct:              { label: "Surface agricole",     unit: "%",      format: (v) => v.toFixed(1) + "%" },
+  chasse_per_100k:      { label: "Tableaux de chasse",   unit: "/100k",  format: (v) => v.toFixed(0) },
+  lieux_culte_per_100k: { label: "Lieux de culte",       unit: "/100k",  format: (v) => v.toFixed(1) },
+  rugby_clubs_per_100k: { label: "Clubs rugby",          unit: "/100k",  format: (v) => v.toFixed(1) },
+  fast_food_per_100k:   { label: "Fast-foods",           unit: "/100k",  format: (v) => v.toFixed(0) },
+  ensoleillement_h:     { label: "Ensoleillement",       unit: "h/an",   format: (v) => v.toFixed(0) + " h" },
 };
 
 export default function SocioEcoTable({
@@ -35,10 +43,7 @@ export default function SocioEcoTable({
           code: r.code,
           name: r.name,
           score: r.candidates[selectedCandidate]?.pct ?? 0,
-          revenue: eco.revenue,
-          unemployment: eco.unemployment,
-          poverty: eco.poverty,
-          indicatorValue: eco[indicator],
+          indicatorValue: (eco[indicator] as number) ?? 0,
         };
       })
       .filter(Boolean)
@@ -46,9 +51,6 @@ export default function SocioEcoTable({
         code: string;
         name: string;
         score: number;
-        revenue: number;
-        unemployment: number;
-        poverty: number;
         indicatorValue: number;
       }[];
   }, [results, socioeco, selectedCandidate, indicator]);

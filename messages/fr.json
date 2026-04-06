@@ -26,7 +26,15 @@
       "none": "Aucun",
       "revenue": "Revenu médian",
       "unemployment": "Taux de chômage",
-      "poverty": "Taux de pauvreté"
+      "poverty": "Taux de pauvreté",
+      "medecins_per_100k": "Médecins / 100k hab.",
+      "pharmacies_per_100k": "Pharmacies / 100k hab.",
+      "sau_pct": "Surface agricole (%)",
+      "chasse_per_100k": "Tableaux de chasse / 100k",
+      "lieux_culte_per_100k": "Lieux de culte / 100k",
+      "rugby_clubs_per_100k": "Clubs de rugby / 100k",
+      "fast_food_per_100k": "Fast-foods / 100k hab.",
+      "ensoleillement_h": "Ensoleillement (h/an)"
     },
     "mapTitle": "Résultats par département",
     "scatterTitle": "Corrélation socio-économique",
