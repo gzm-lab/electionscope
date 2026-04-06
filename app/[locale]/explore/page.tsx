@@ -8,7 +8,7 @@ import { useLocale } from "next-intl";
 
 import YearSelector from "@/components/Controls/YearSelector";
 import TourSelector from "@/components/Controls/TourSelector";
-import CandidateSelector from "@/components/Controls/CandidateSelector";
+import CandidateBar from "@/components/Controls/CandidateBar";
 import IndicatorSelector, { Indicator } from "@/components/Controls/IndicatorSelector";
 import LanguageSwitcher from "@/components/UI/LanguageSwitcher";
 import NationalResults from "@/components/Charts/NationalResults";
@@ -72,6 +72,14 @@ export default function ExplorePage() {
     return selectedTour === 1 ? election.candidates_t1 : election.candidates_t2;
   }, [index, selectedYear, selectedTour]);
 
+  // Scores nationaux pour la CandidateBar
+  const nationalScores = useMemo(() => {
+    if (!index) return {};
+    const election = index.elections.find((e) => e.year === selectedYear);
+    if (!election) return {};
+    return selectedTour === 1 ? election.national_t1 : election.national_t2;
+  }, [index, selectedYear, selectedTour]);
+
   useEffect(() => {
     setLoading(true);
     loadElectionResults(selectedYear, selectedTour).then((data) => {
@@ -127,15 +135,6 @@ export default function ExplorePage() {
             </div>
             <div className="glass rounded-xl p-3">
               <TourSelector selected={selectedTour} onSelect={handleTourChange} />
-            </div>
-            <div className="glass rounded-xl p-3">
-              <CandidateSelector
-                candidates={candidates}
-                selectedId={selectedCandidate}
-                mapMode={mapMode}
-                onSelect={handleSelectCandidate}
-                onWinnerMode={handleWinnerMode}
-              />
             </div>
             <div className="glass rounded-xl p-3">
               <IndicatorSelector selected={indicator} onSelect={setIndicator} />
@@ -204,6 +203,16 @@ export default function ExplorePage() {
           <LanguageSwitcher />
         </div>
       </nav>
+
+      {/* ── CandidateBar — pleine largeur sous la navbar ── */}
+      <CandidateBar
+        candidates={candidates}
+        selectedId={selectedCandidate}
+        mapMode={mapMode}
+        nationalScores={nationalScores}
+        onSelect={handleSelectCandidate}
+        onWinnerMode={handleWinnerMode}
+      />
 
       {/* ── Main ── */}
       <div className="flex flex-1 overflow-hidden relative">
