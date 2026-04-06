@@ -54,7 +54,7 @@ export default function ExplorePage() {
   const [selectedDept, setSelectedDept] = useState<DeptResult | null>(null);
 
   const [socioeco, setSocioeco] = useState<Record<string, { revenue: number; unemployment: number; poverty: number }>>({});
-  const [indicator, setIndicator] = useState<Indicator>("none");
+  const [indicator, setIndicator] = useState<Indicator>("revenue");
 
   const [sidebarTab, setSidebarTab] = useState<"controls" | "results">("controls");
   const [showTimeline, setShowTimeline] = useState(false);
@@ -275,36 +275,26 @@ export default function ExplorePage() {
               <DeptPanel dept={selectedDept} onClose={() => setSelectedDept(null)} />
             </div>
 
-            {/* Scatter plot */}
-            <AnimatePresence>
-              {indicator !== "none" && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 180 }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="glass rounded-xl overflow-hidden shrink-0"
-                >
-                  <div className="p-3 h-full flex flex-col">
-                    <div className="flex items-center justify-between mb-1 shrink-0">
-                      <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                        Corrélation socio-éco
-                      </h2>
-                      <button onClick={() => setIndicator("none")} className="text-gray-600 hover:text-gray-400 text-sm">✕</button>
-                    </div>
-                    <div className="flex-1 min-h-0">
-                      {effectiveCandidate && results.length > 0 && (
-                        <ScatterPlot
-                          results={results}
-                          socioeco={socioeco}
-                          selectedCandidate={effectiveCandidate}
-                          indicator={indicator}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Scatter plot — toujours visible */}
+            <div className="glass rounded-xl overflow-hidden shrink-0" style={{ height: 180 }}>
+              <div className="p-3 h-full flex flex-col">
+                <div className="flex items-center justify-between mb-1 shrink-0">
+                  <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    Corrélation socio-éco
+                  </h2>
+                </div>
+                <div className="flex-1 min-h-0">
+                  {effectiveCandidate && results.length > 0 && (
+                    <ScatterPlot
+                      results={results}
+                      socioeco={socioeco}
+                      selectedCandidate={effectiveCandidate}
+                      indicator={indicator}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

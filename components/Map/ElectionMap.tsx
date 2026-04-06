@@ -54,6 +54,11 @@ export default function ElectionMap({
         attributionControl: false,
         pitchWithRotate: false,
         dragRotate: false,
+        scrollZoom: false,
+        dragPan: false,
+        touchZoomRotate: false,
+        doubleClickZoom: false,
+        keyboard: false,
       });
 
       mapInstance.current = map;

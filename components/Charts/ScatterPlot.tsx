@@ -14,7 +14,6 @@ interface ScatterPlotProps {
 }
 
 const INDICATOR_LABELS: Record<Indicator, string> = {
-  none: "",
   revenue: "Revenu médian (€/mois)",
   unemployment: "Taux de chômage (%)",
   poverty: "Taux de pauvreté (%)",
@@ -25,7 +24,7 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!svgRef.current || indicator === "none" || !selectedCandidate) return;
+    if (!svgRef.current || !selectedCandidate) return;
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
@@ -35,7 +34,7 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
 
     const totalWidth = container.clientWidth || 600;
     const totalHeight = container.clientHeight || 300;
-    const margin = { top: 16, right: 120, bottom: 52, left: 58 };
+    const margin = { top: 16, right: 128, bottom: 52, left: 58 };
     const width = totalWidth - margin.left - margin.right;
     const height = totalHeight - margin.top - margin.bottom;
 
@@ -160,30 +159,42 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .attr("cy", (d) => yScale(d.y))
       .attr("r", 5);
 
-    // Pearson badge
-    const pearsonG = g.append("g").attr("transform", `translate(${width + 8}, 8)`);
+    // Pearson badge — label sémantique selon seuils de Cohen
+    const absR = Math.abs(pearson);
+    const pearsonColor = absR < 0.1 ? "#6b7280" : absR < 0.3 ? "#f59e0b" : absR < 0.5 ? "#f97316" : "#10b981";
+    const pearsonLabel = absR < 0.1 ? "Pas de corr." : absR < 0.3 ? "Corr. faible" : absR < 0.5 ? "Corr. modérée" : "Corr. forte";
+    const pearsonSign = pearson >= 0 ? "↗ positive" : "↘ négative";
+
+    const pearsonG = g.append("g").attr("transform", `translate(${width + 8}, 0)`);
     pearsonG.append("rect")
-      .attr("width", 100).attr("height", 44).attr("rx", 8)
-      .attr("fill", "rgba(10,10,20,0.9)").attr("stroke", "rgba(59,130,246,0.2)").attr("stroke-width", 1);
+      .attr("width", 108).attr("height", 72).attr("rx", 8)
+      .attr("fill", "rgba(10,10,20,0.95)")
+      .attr("stroke", pearsonColor)
+      .attr("stroke-width", 1.2)
+      .attr("stroke-opacity", 0.5);
+    // Label "Pearson r"
     pearsonG.append("text")
-      .attr("x", 50).attr("y", 16).attr("text-anchor", "middle")
-      .attr("fill", "rgba(255,255,255,0.4)").style("font-size", "9px").text("Pearson r");
+      .attr("x", 54).attr("y", 14).attr("text-anchor", "middle")
+      .attr("fill", "rgba(255,255,255,0.35)").style("font-size", "8px").style("letter-spacing", "0.05em")
+      .text("PEARSON r");
+    // Valeur numérique
     pearsonG.append("text")
-      .attr("x", 50).attr("y", 34).attr("text-anchor", "middle")
-      .attr("fill", pearson > 0 ? "#10b981" : "#ef4444")
-      .style("font-size", "15px").style("font-weight", "bold")
+      .attr("x", 54).attr("y", 34).attr("text-anchor", "middle")
+      .attr("fill", pearsonColor)
+      .style("font-size", "16px").style("font-weight", "bold")
       .text(pearson.toFixed(3));
+    // Label sémantique
+    pearsonG.append("text")
+      .attr("x", 54).attr("y", 50).attr("text-anchor", "middle")
+      .attr("fill", pearsonColor).style("font-size", "8px").style("font-weight", "600")
+      .text(pearsonLabel);
+    // Direction
+    pearsonG.append("text")
+      .attr("x", 54).attr("y", 64).attr("text-anchor", "middle")
+      .attr("fill", "rgba(255,255,255,0.25)").style("font-size", "8px")
+      .text(pearsonSign);
 
   }, [results, socioeco, selectedCandidate, indicator]);
-
-  if (indicator === "none") {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-        <div className="text-2xl opacity-30">📊</div>
-        <p className="text-gray-600 text-sm">Sélectionnez un indicateur socio-économique</p>
-      </div>
-    );
-  }
 
   return (
     <div className="relative w-full h-full">

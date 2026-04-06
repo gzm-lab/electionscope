@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
-export type Indicator = "none" | "revenue" | "unemployment" | "poverty";
+export type Indicator = "revenue" | "unemployment" | "poverty";
 
 interface IndicatorSelectorProps {
   selected: Indicator;
@@ -14,7 +14,6 @@ export default function IndicatorSelector({ selected, onSelect }: IndicatorSelec
   const t = useTranslations("explore");
 
   const indicators: { id: Indicator; icon: string }[] = [
-    { id: "none", icon: "✕" },
     { id: "revenue", icon: "💶" },
     { id: "unemployment", icon: "📊" },
     { id: "poverty", icon: "📉" },
