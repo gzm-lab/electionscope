@@ -43,34 +43,28 @@ const TimelineChart = dynamic(() => import("@/components/Charts/TimelineChart"),
 export default function ExplorePage() {
   const locale = useLocale();
 
-  // Election state
   const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedTour, setSelectedTour] = useState<1 | 2>(1);
   const [results, setResults] = useState<DeptResult[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Map state
   const [mapMode, setMapMode] = useState<"candidate" | "winner">("winner");
   const [selectedCandidate, setSelectedCandidate] = useState<string | null>(null);
   const [selectedDept, setSelectedDept] = useState<DeptResult | null>(null);
 
-  // Socioeco
   const [socioeco, setSocioeco] = useState<Record<string, { revenue: number; unemployment: number; poverty: number }>>({});
   const [indicator, setIndicator] = useState<Indicator>("none");
 
-  // UI
   const [sidebarTab, setSidebarTab] = useState<"controls" | "results">("controls");
   const [showTimeline, setShowTimeline] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
-  // Load index once
   useEffect(() => {
     loadIndex().then(setIndex);
     fetch("/data/socioeco.json").then(r => r.json()).then(setSocioeco);
   }, []);
 
-  // Candidates for selected year/tour
   const candidates = useMemo(() => {
     if (!index) return [];
     const election = index.elections.find((e) => e.year === selectedYear);
@@ -78,7 +72,6 @@ export default function ExplorePage() {
     return selectedTour === 1 ? election.candidates_t1 : election.candidates_t2;
   }, [index, selectedYear, selectedTour]);
 
-  // Load results when year/tour changes
   useEffect(() => {
     setLoading(true);
     loadElectionResults(selectedYear, selectedTour).then((data) => {
@@ -88,38 +81,30 @@ export default function ExplorePage() {
     setSelectedDept(null);
   }, [selectedYear, selectedTour]);
 
-  // Auto-select first candidate when candidates change
   useEffect(() => {
     if (candidates.length > 0 && (!selectedCandidate || !candidates.includes(selectedCandidate))) {
       setSelectedCandidate(candidates[0]);
     }
   }, [candidates]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleYearChange = useCallback((year: number) => {
-    setSelectedYear(year);
-  }, []);
-
-  const handleTourChange = useCallback((tour: 1 | 2) => {
-    setSelectedTour(tour);
-  }, []);
-
+  const handleYearChange = useCallback((year: number) => setSelectedYear(year), []);
+  const handleTourChange = useCallback((tour: 1 | 2) => setSelectedTour(tour), []);
   const handleSelectCandidate = useCallback((name: string) => {
     setSelectedCandidate(name);
     setMapMode("candidate");
-    setDrawerOpen(false);
+    setSheetOpen(false);
   }, []);
-
   const handleWinnerMode = useCallback(() => {
     setMapMode("winner");
     setSelectedCandidate(null);
   }, []);
 
-  // Map effective candidate (for scatter + legends)
   const effectiveCandidate = mapMode === "candidate" ? selectedCandidate : (candidates[0] ?? null);
 
-  // Sidebar content (shared between desktop aside and mobile drawer)
+  // Sidebar/sheet content
   const sidebarContent = (
     <>
+      {/* Tabs */}
       <div className="flex border-b border-white/5 shrink-0">
         {(["controls", "results"] as const).map((tab) => (
           <button
@@ -179,13 +164,14 @@ export default function ExplorePage() {
 
   return (
     <div className="h-screen bg-[#0a0a0f] flex flex-col overflow-hidden">
-      {/* Navbar */}
+
+      {/* ── Navbar ── */}
       <nav className="glass border-b border-white/5 px-3 md:px-4 py-2.5 flex items-center justify-between shrink-0 z-40">
         <div className="flex items-center gap-2">
-          {/* Mobile drawer toggle */}
+          {/* Mobile: bouton contrôles */}
           <button
-            className="md:hidden glass rounded-lg p-1.5 text-gray-400 hover:text-white transition-colors"
-            onClick={() => setDrawerOpen((v) => !v)}
+            className="lg:hidden glass rounded-lg p-1.5 text-gray-400 hover:text-white transition-colors"
+            onClick={() => setSheetOpen(true)}
             aria-label="Contrôles"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -197,20 +183,17 @@ export default function ExplorePage() {
           <Link href={`/${locale}`} className="hover:opacity-80 transition-opacity">
             <span className="text-base font-black gradient-text">ElectionScope</span>
           </Link>
-        </div>
-        <div className="flex items-center gap-2 md:gap-4">
           {loading && (
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
-              <div className="w-3 h-3 border border-blue-500 border-t-transparent rounded-full animate-spin" />
-            </div>
+            <div className="w-3 h-3 border border-blue-500 border-t-transparent rounded-full animate-spin ml-1" />
           )}
-          {/* Contexte année/tour visible sur mobile */}
-          <span className="md:hidden text-xs text-gray-500 font-medium">
+        </div>
+        <div className="flex items-center gap-2 md:gap-3">
+          <span className="lg:hidden text-xs text-gray-500 font-medium">
             {selectedYear} · T{selectedTour}
           </span>
           <button
             onClick={() => setShowTimeline((v) => !v)}
-            className={`glass rounded-lg px-2 md:px-2.5 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 ${
+            className={`glass rounded-lg px-2 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 ${
               showTimeline ? "text-white bg-white/10 ring-1 ring-white/20" : "text-gray-300 hover:text-white"
             }`}
           >
@@ -222,63 +205,67 @@ export default function ExplorePage() {
         </div>
       </nav>
 
-      {/* Main */}
+      {/* ── Main ── */}
       <div className="flex flex-1 overflow-hidden relative">
 
-        {/* ── Desktop Sidebar ─────────────────────────────────── */}
+        {/* Desktop Sidebar — lg+ only */}
         <motion.aside
           initial={{ x: -10, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          className="hidden md:flex w-[272px] shrink-0 flex-col border-r border-white/5 overflow-hidden"
+          className="hidden lg:flex w-[272px] shrink-0 flex-col border-r border-white/5 overflow-hidden"
         >
           {sidebarContent}
         </motion.aside>
 
-        {/* ── Mobile drawer overlay ─────────────────────────── */}
+        {/* ── Mobile bottom sheet ── */}
         <AnimatePresence>
-          {drawerOpen && (
+          {sheetOpen && (
             <>
               {/* Backdrop */}
               <motion.div
+                key="backdrop"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 z-30 bg-black/60 md:hidden"
-                onClick={() => setDrawerOpen(false)}
+                className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+                onClick={() => setSheetOpen(false)}
               />
-              {/* Drawer */}
+              {/* Sheet — monte du bas, max 80vh */}
               <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ type: "spring", stiffness: 300, damping: 32 }}
-                className="absolute left-0 top-0 bottom-0 z-40 md:hidden flex flex-col bg-[#0d0d14] border-r border-white/5 overflow-hidden"
-                style={{ width: 288 }}
+                key="sheet"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
+                transition={{ type: "spring", stiffness: 320, damping: 36 }}
+                className="fixed bottom-0 left-0 right-0 z-50 lg:hidden flex flex-col bg-[#0d0d14] border-t border-white/10 rounded-t-2xl shadow-2xl"
+                style={{ maxHeight: "80vh" }}
               >
-                {/* Drawer header */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 shrink-0">
-                  <span className="text-sm font-bold text-white">
-                    Présidentielle {selectedYear}
-                  </span>
-                  <button
-                    onClick={() => setDrawerOpen(false)}
-                    className="text-gray-500 hover:text-white text-xl leading-none"
-                  >
-                    ×
-                  </button>
+                {/* Handle */}
+                <div className="shrink-0 pt-3 pb-1 flex flex-col items-center gap-1">
+                  <div className="w-10 h-1 bg-white/20 rounded-full" />
+                  <div className="flex items-center justify-between w-full px-4 pb-2 pt-1">
+                    <span className="text-sm font-bold text-white">Présidentielle {selectedYear}</span>
+                    <button
+                      onClick={() => setSheetOpen(false)}
+                      className="text-gray-500 hover:text-white text-2xl leading-none"
+                    >
+                      ×
+                    </button>
+                  </div>
                 </div>
-                {sidebarContent}
+                <div className="flex-1 flex flex-col overflow-hidden">
+                  {sidebarContent}
+                </div>
               </motion.div>
             </>
           )}
         </AnimatePresence>
 
-        {/* ── Content area ──────────────────────────────────────── */}
+        {/* ── Content area ── */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-          {/* Map + Scatter split */}
           <div className="flex-1 flex flex-col overflow-hidden p-2 md:p-3 gap-2 md:gap-3">
             {/* Map */}
-            <div className="flex-1 min-h-0 relative" style={{ minHeight: 280 }}>
+            <div className="flex-1 min-h-0 relative">
               <ElectionMap
                 results={results}
                 selectedCandidate={selectedCandidate}
@@ -293,7 +280,7 @@ export default function ExplorePage() {
               {indicator !== "none" && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: typeof window !== "undefined" && window.innerWidth < 768 ? 160 : 200 }}
+                  animate={{ opacity: 1, height: 180 }}
                   exit={{ opacity: 0, height: 0 }}
                   className="glass rounded-xl overflow-hidden shrink-0"
                 >
@@ -322,12 +309,12 @@ export default function ExplorePage() {
         </div>
       </div>
 
-      {/* Timeline panel — slides in from bottom */}
+      {/* Timeline */}
       <AnimatePresence>
         {showTimeline && index && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: typeof window !== "undefined" && window.innerWidth < 768 ? 200 : 260, opacity: 1 }}
+            animate={{ height: 240, opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 30 }}
             className="shrink-0 border-t border-white/5 glass overflow-hidden"

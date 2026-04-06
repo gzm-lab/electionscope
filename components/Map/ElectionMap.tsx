@@ -248,8 +248,8 @@ export default function ElectionMap({
         )}
       </AnimatePresence>
 
-      {/* Legend */}
-      <div className="absolute bottom-4 left-4 glass rounded-lg p-3 max-w-[200px]">
+      {/* Legend — caché sur mobile */}
+      <div className="hidden md:block absolute bottom-4 left-4 glass rounded-lg p-3 max-w-[200px]">
         {mapMode === "winner" ? (
           <div>
             <div className="text-xs text-gray-400 mb-2 font-medium">Candidat en tête</div>
