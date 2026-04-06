@@ -19,6 +19,7 @@ import {
   loadIndex,
   DeptResult,
   ElectionIndex,
+  getCandidateColor,
 } from "@/lib/electionData";
 
 const ElectionMap = dynamic(() => import("@/components/Map/ElectionMap"), {
@@ -33,6 +34,11 @@ const ElectionMap = dynamic(() => import("@/components/Map/ElectionMap"), {
 const ScatterPlot = dynamic(() => import("@/components/Charts/ScatterPlot"), {
   ssr: false,
   loading: () => <div className="w-full h-full shimmer rounded-lg" />,
+});
+
+const SocioEcoTable = dynamic(() => import("@/components/Charts/SocioEcoTable"), {
+  ssr: false,
+  loading: () => <div className="w-full shimmer rounded-lg" style={{ height: 120 }} />,
 });
 
 const TimelineChart = dynamic(() => import("@/components/Charts/TimelineChart"), {
@@ -284,35 +290,56 @@ export default function ExplorePage() {
               <DeptPanel dept={selectedDept} onClose={() => setSelectedDept(null)} />
             </div>
 
-            {/* Scatter plot — visible seulement si un candidat est sélectionné */}
-            <div className="glass rounded-xl overflow-hidden shrink-0" style={{ height: 180 }}>
-              <div className="p-3 h-full flex flex-col">
-                <div className="flex items-center justify-between mb-1 shrink-0">
-                  <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    Corrélation socio-éco
-                  </h2>
-                  {mapMode === "candidate" && selectedCandidate && (
-                    <span className="text-xs text-gray-600 truncate max-w-[120px]">{selectedCandidate}</span>
-                  )}
-                </div>
-                <div className="flex-1 min-h-0">
-                  {mapMode === "candidate" && selectedCandidate && results.length > 0 ? (
+            {/* Scatter + tableau socio-éco */}
+            <div className="glass rounded-xl overflow-hidden shrink-0 flex flex-col" style={{ maxHeight: 380 }}>
+              {/* Header */}
+              <div className="flex items-center justify-between px-3 pt-3 pb-1 shrink-0">
+                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  Corrélation socio-éco
+                </h2>
+                {mapMode === "candidate" && selectedCandidate && (
+                  <span
+                    className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                    style={{ color: getCandidateColor(selectedCandidate), backgroundColor: `${getCandidateColor(selectedCandidate)}18` }}
+                  >
+                    {selectedCandidate}
+                  </span>
+                )}
+              </div>
+
+              {mapMode === "candidate" && selectedCandidate && results.length > 0 ? (
+                <>
+                  {/* Scatter plot — hauteur fixe */}
+                  <div className="shrink-0 px-2 pb-1" style={{ height: 180 }}>
                     <ScatterPlot
                       results={results}
                       socioeco={socioeco}
                       selectedCandidate={selectedCandidate}
                       indicator={indicator}
                     />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-                      <div className="text-2xl opacity-20">📊</div>
-                      <p className="text-gray-600 text-xs text-center px-4">
-                        Sélectionnez un candidat pour voir la corrélation
-                      </p>
-                    </div>
-                  )}
+                  </div>
+
+                  {/* Séparateur */}
+                  <div className="border-t border-white/5 mx-3 shrink-0" />
+
+                  {/* Tableau scrollable */}
+                  <div className="overflow-y-auto flex-1 min-h-0" style={{ minHeight: 80 }}>
+                    <SocioEcoTable
+                      results={results}
+                      socioeco={socioeco}
+                      selectedCandidate={selectedCandidate}
+                      indicator={indicator}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col items-center justify-center gap-2 py-8">
+                  <div className="text-2xl opacity-20">📊</div>
+                  <p className="text-gray-600 text-xs text-center px-4">
+                    Sélectionnez un candidat pour voir la corrélation
+                  </p>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
