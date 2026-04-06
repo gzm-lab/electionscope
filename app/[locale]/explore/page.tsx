@@ -9,7 +9,6 @@ import { useLocale } from "next-intl";
 import YearSelector from "@/components/Controls/YearSelector";
 import TourSelector from "@/components/Controls/TourSelector";
 import CandidateBar from "@/components/Controls/CandidateBar";
-import IndicatorSelector, { Indicator } from "@/components/Controls/IndicatorSelector";
 import LanguageSwitcher from "@/components/UI/LanguageSwitcher";
 import NationalResults from "@/components/Charts/NationalResults";
 import DeptPanel from "@/components/Map/DeptPanel";
@@ -36,11 +35,6 @@ const ScatterPlot = dynamic(() => import("@/components/Charts/ScatterPlot"), {
   loading: () => <div className="w-full h-full shimmer rounded-lg" />,
 });
 
-const SocioEcoTable = dynamic(() => import("@/components/Charts/SocioEcoTable"), {
-  ssr: false,
-  loading: () => <div className="w-full shimmer rounded-lg" style={{ height: 120 }} />,
-});
-
 const TimelineChart = dynamic(() => import("@/components/Charts/TimelineChart"), {
   ssr: false,
   loading: () => <div className="w-full h-full shimmer rounded-lg" />,
@@ -60,7 +54,7 @@ export default function ExplorePage() {
   const [selectedDept, setSelectedDept] = useState<DeptResult | null>(null);
 
   const [socioeco, setSocioeco] = useState<Record<string, { revenue: number; unemployment: number; poverty: number }>>({});
-  const [indicator, setIndicator] = useState<Indicator>("revenue");
+  const [indicator, setIndicator] = useState<"revenue" | "unemployment" | "poverty">("revenue");
 
   const [sidebarTab, setSidebarTab] = useState<"controls" | "results">("controls");
   const [showTimeline, setShowTimeline] = useState(false);
@@ -141,9 +135,6 @@ export default function ExplorePage() {
             </div>
             <div className="glass rounded-xl p-3">
               <TourSelector selected={selectedTour} onSelect={handleTourChange} />
-            </div>
-            <div className="glass rounded-xl p-3">
-              <IndicatorSelector selected={indicator} onSelect={setIndicator} />
             </div>
           </div>
         ) : (
@@ -290,8 +281,8 @@ export default function ExplorePage() {
               <DeptPanel dept={selectedDept} onClose={() => setSelectedDept(null)} />
             </div>
 
-            {/* Scatter + tableau socio-éco */}
-            <div className="glass rounded-xl overflow-hidden shrink-0 flex flex-col" style={{ maxHeight: 380 }}>
+            {/* Scatter + sélecteur indicateur */}
+            <div className="glass rounded-xl overflow-hidden shrink-0 flex flex-col" style={{ maxHeight: 280 }}>
               {/* Header */}
               <div className="flex items-center justify-between px-3 pt-3 pb-1 shrink-0">
                 <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
@@ -309,8 +300,8 @@ export default function ExplorePage() {
 
               {mapMode === "candidate" && selectedCandidate && results.length > 0 ? (
                 <>
-                  {/* Scatter plot — hauteur fixe */}
-                  <div className="shrink-0 px-2 pb-1" style={{ height: 180 }}>
+                  {/* Scatter plot */}
+                  <div className="shrink-0 px-2 pb-1 flex-1 min-h-0" style={{ height: 180 }}>
                     <ScatterPlot
                       results={results}
                       socioeco={socioeco}
@@ -319,17 +310,25 @@ export default function ExplorePage() {
                     />
                   </div>
 
-                  {/* Séparateur */}
-                  <div className="border-t border-white/5 mx-3 shrink-0" />
-
-                  {/* Tableau scrollable */}
-                  <div className="overflow-y-auto flex-1 min-h-0" style={{ minHeight: 80 }}>
-                    <SocioEcoTable
-                      results={results}
-                      socioeco={socioeco}
-                      selectedCandidate={selectedCandidate}
-                      indicator={indicator}
-                    />
+                  {/* Sélecteur indicateur inline */}
+                  <div className="shrink-0 border-t border-white/5 px-3 py-2 flex gap-2">
+                    {(["revenue", "unemployment", "poverty"] as const).map((ind) => {
+                      const labels = { revenue: "💶 Revenu", unemployment: "📊 Chômage", poverty: "📉 Pauvreté" };
+                      const isActive = indicator === ind;
+                      return (
+                        <button
+                          key={ind}
+                          onClick={() => setIndicator(ind)}
+                          className={`flex-1 text-[10px] font-semibold py-1.5 px-2 rounded-lg transition-all ${
+                            isActive
+                              ? "bg-blue-600/20 text-blue-300 ring-1 ring-blue-500/30"
+                              : "glass text-gray-500 hover:text-gray-300"
+                          }`}
+                        >
+                          {labels[ind]}
+                        </button>
+                      );
+                    })}
                   </div>
                 </>
               ) : (
