@@ -275,22 +275,32 @@ export default function ExplorePage() {
               <DeptPanel dept={selectedDept} onClose={() => setSelectedDept(null)} />
             </div>
 
-            {/* Scatter plot — toujours visible */}
+            {/* Scatter plot — visible seulement si un candidat est sélectionné */}
             <div className="glass rounded-xl overflow-hidden shrink-0" style={{ height: 180 }}>
               <div className="p-3 h-full flex flex-col">
                 <div className="flex items-center justify-between mb-1 shrink-0">
                   <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
                     Corrélation socio-éco
                   </h2>
+                  {mapMode === "candidate" && selectedCandidate && (
+                    <span className="text-xs text-gray-600 truncate max-w-[120px]">{selectedCandidate}</span>
+                  )}
                 </div>
                 <div className="flex-1 min-h-0">
-                  {effectiveCandidate && results.length > 0 && (
+                  {mapMode === "candidate" && selectedCandidate && results.length > 0 ? (
                     <ScatterPlot
                       results={results}
                       socioeco={socioeco}
-                      selectedCandidate={effectiveCandidate}
+                      selectedCandidate={selectedCandidate}
                       indicator={indicator}
                     />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+                      <div className="text-2xl opacity-20">📊</div>
+                      <p className="text-gray-600 text-xs text-center px-4">
+                        Sélectionnez un candidat pour voir la corrélation
+                      </p>
+                    </div>
                   )}
                 </div>
               </div>
