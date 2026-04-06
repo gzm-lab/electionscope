@@ -55,7 +55,7 @@ export default function HomePage() {
       </nav>
 
       {/* Hero */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center px-6">
+      <div className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-8">
         {/* Background grid */}
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -147,7 +147,7 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.6 }}
-          className="absolute bottom-16 flex flex-wrap gap-4 justify-center"
+          className="mt-12 flex flex-wrap gap-4 justify-center"
         >
           {stats.map((stat, i) => (
             <motion.div
