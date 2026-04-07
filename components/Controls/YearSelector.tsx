@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const YEARS = [1965, 1969, 1974, 1981, 1988, 1995, 2002, 2007, 2012, 2017, 2022];
+const YEARS = [2002, 2007, 2012, 2017, 2022];
 
 interface YearSelectorProps {
   selectedYear: number;

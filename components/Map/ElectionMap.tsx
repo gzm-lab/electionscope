@@ -5,6 +5,7 @@ import * as d3 from "d3";
 import { motion, AnimatePresence } from "framer-motion";
 import * as turf from "@turf/turf";
 import { DeptResult, getCandidateColor, getWinnerMap } from "@/lib/electionData";
+import { getCommuneWinner } from "@/lib/communeData";
 
 interface ElectionMapProps {
   results: DeptResult[];
@@ -18,7 +19,14 @@ interface ElectionMapProps {
 interface TooltipData {
   x: number;
   y: number;
-  dept: DeptResult;
+  dept?: DeptResult;
+  isCommune?: boolean;
+  commune?: {
+    name: string;
+    code: string;
+    result: any;
+    turnout?: number;
+  };
 }
 
 export default function ElectionMap({
@@ -35,7 +43,7 @@ export default function ElectionMap({
   const [mapReady, setMapReady] = useState(false);
   const resultsMapRef = useRef<Record<string, DeptResult>>({});
   const deptGeoJSONRef = useRef<any>(null);
-  const communeDataRef = useRef<Record<string, CommuneResult> | undefined>();
+  const communeDataRef = useRef<Record<string, any> | undefined>();
   const communeNamesRef = useRef<Record<string, string> | undefined>();
 
   useEffect(() => {
@@ -44,8 +52,7 @@ export default function ElectionMap({
 
   useEffect(() => {
     communeDataRef.current = communeData;
-    communeNamesRef.current = communeNames;
-  }, [communeData, communeNames]);
+  }, [communeData]);
 
   // Init map once
   useEffect(() => {
@@ -152,7 +159,7 @@ export default function ElectionMap({
           
           // Format tooltip for commune
           // You'll need to adapt this based on the exact structure of your commune data
-          // setTooltip({ x: e.point.x, y: e.point.y, isCommune: true, data: feature.properties });
+          try { const rawResult = feature.properties?.result; let rObj = rawResult; if (typeof rawResult === "string") { try { rObj = JSON.parse(rawResult); } catch(e){} } setTooltip({ x: e.point.x, y: e.point.y, isCommune: true, commune: { name: feature.properties?.name || feature.properties?.nom || "", code: feature.properties?.code || String(feature.id), result: rObj || {} } }); } catch(err){} 
         });
 
         map.on("mouseleave", "communes-fill", () => {
@@ -275,9 +282,7 @@ export default function ElectionMap({
       
       // Update communes data if available
       if (communeData) {
-        // Here we'd add color property to each feature based on results
-        // For now, just setting the data
-        const communeSource = map.getSource('communes');
+        const communeSource = map.getSource('communes') as any;
         if (communeSource) {
           communeSource.setData(communeData);
         }
@@ -310,25 +315,9 @@ export default function ElectionMap({
     return { name: best, pct: bestPct };
   };
 
-  const tooltipColor = tooltip
-    ? mapMode === "winner"
-      ? getCandidateColor(getLeader(tooltip.dept).name)
-      : selectedCandidate
-      ? getCandidateColor(selectedCandidate)
-      : "#3b82f6"
-    : "#3b82f6";
-
-  const tooltipScore = tooltip
-    ? mapMode === "winner"
-      ? getLeader(tooltip.dept).pct
-      : tooltip.dept.candidates[selectedCandidate ?? ""]?.pct ?? 0
-    : 0;
-
-  const tooltipName = tooltip
-    ? mapMode === "winner"
-      ? getLeader(tooltip.dept).name
-      : selectedCandidate ?? ""
-    : "";
+  const tooltipColor = tooltip ? tooltip.isCommune && tooltip.commune ? mapMode === "winner" ? getCandidateColor(getCommuneWinner(tooltip.commune.result)?.name || "") : selectedCandidate ? getCandidateColor(selectedCandidate) : "#3b82f6" : tooltip.dept ? mapMode === "winner" ? getCandidateColor(getLeader(tooltip.dept!).name) : selectedCandidate ? getCandidateColor(selectedCandidate) : "#3b82f6" : "#3b82f6" : "#3b82f6";
+  const tooltipScore = tooltip ? tooltip.isCommune && tooltip.commune ? mapMode === "winner" ? getCommuneWinner(tooltip.commune.result)?.pct || 0 : (() => { const cKey = Object.keys(tooltip.commune.result).find(k => k.toLowerCase().includes((selectedCandidate || "").toLowerCase())); return cKey ? tooltip.commune.result[cKey]?.pct : 0; })() : tooltip.dept ? mapMode === "winner" ? getLeader(tooltip.dept!).pct : tooltip.dept!.candidates[selectedCandidate ?? ""]?.pct ?? 0 : 0 : 0;
+  const tooltipName = tooltip ? tooltip.isCommune && tooltip.commune ? mapMode === "winner" ? getCommuneWinner(tooltip.commune.result)?.name || "" : selectedCandidate || "" : tooltip.dept ? mapMode === "winner" ? getLeader(tooltip.dept!).name : selectedCandidate ?? "" : "" : "";
 
   return (
     <div className="relative w-full h-full rounded-xl overflow-hidden">
@@ -352,20 +341,27 @@ export default function ElectionMap({
             {tooltip.isCommune && tooltip.commune ? (
               <>
                 <div className="font-bold text-white text-sm mb-2.5">{tooltip.commune.name} <span className="text-gray-500 font-normal text-xs ml-1">({tooltip.commune.code})</span></div>
-                {(() => {
-                  const candKey = Object.keys(tooltip.commune.result).find(k => k.toLowerCase().includes((selectedCandidate || "").toLowerCase()));
-                  const cScore = candKey ? tooltip.commune.result[candKey]?.pct : 0;
-                  const cColor = selectedCandidate ? getCandidateColor(selectedCandidate) : "#3b82f6";
-                  return (
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: cColor }} />
-                      <span className="text-gray-300 text-xs font-medium">{selectedCandidate}</span>
-                      <span className="ml-auto text-base font-black" style={{ color: cColor }}>
-                        {cScore?.toFixed(1)}%
-                      </span>
-                    </div>
-                  );
-                })()}
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: tooltipColor }} />
+                  <span className="text-gray-300 text-xs font-medium">{tooltipName}</span>
+                  <span className="ml-auto text-base font-black" style={{ color: tooltipColor }}>
+                    {tooltipScore?.toFixed(1)}%
+                  </span>
+                </div>
+                {mapMode === "winner" && (
+                  <div className="mt-2 pt-2 border-t border-white/10 space-y-1">
+                    {Object.entries(tooltip.commune.result)
+                      .sort((a: any, b: any) => b[1].pct - a[1].pct)
+                      .slice(0, 4)
+                      .map(([name, res]: any) => (
+                        <div key={name} className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: getCandidateColor(name) }} />
+                          <span className="text-gray-500 text-xs truncate max-w-[90px]">{name}</span>
+                          <span className="ml-auto text-xs text-gray-300 font-semibold">{res.pct.toFixed(1)}%</span>
+                        </div>
+                      ))}
+                  </div>
+                )}
               </>
             ) : tooltip.dept ? (
               <>
@@ -379,7 +375,7 @@ export default function ElectionMap({
                 </div>
                 {mapMode === "winner" && (
                   <div className="mt-2 pt-2 border-t border-white/10 space-y-1">
-                    {Object.entries(tooltip.dept.candidates)
+                    {Object.entries(tooltip.dept!.candidates)
                       .sort((a, b) => b[1].pct - a[1].pct)
                       .slice(0, 4)
                       .map(([name, res]) => (
@@ -393,7 +389,7 @@ export default function ElectionMap({
                 )}
                 <div className="mt-2 pt-2 border-t border-white/10 text-xs text-gray-500 flex justify-between">
                   <span>Participation</span>
-                  <span className="text-gray-400 font-semibold">{tooltip.dept.turnout}%</span>
+                  <span className="text-gray-400 font-semibold">{tooltip.dept!.turnout}%</span>
                 </div>
               </>
             ) : null}

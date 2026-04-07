@@ -21,7 +21,8 @@ import {
   ElectionIndex,
   getCandidateColor,
 } from "@/lib/electionData";
-import { loadCommuneResults, loadCommuneSocioEco, CommuneResult, CommuneSocioEco, getCommuneWinner } from "@/lib/communeData";
+import { loadCommuneResults, loadCommuneSocioEco, getCommuneWinner } from "@/lib/communeData";
+import { CommuneResult, CommuneSocioEco } from "@/lib/communeData";
 import * as turf from "@turf/turf";
 
 const ElectionMap = dynamic(() => import("@/components/Map/ElectionMap"), {
@@ -60,8 +61,8 @@ export default function ExplorePage() {
   const [indicator, setIndicator] = useState<Indicator>("revenue");
 
   // --- Données Communes (Chantier 4) ---
-  const [communeElec, setCommuneElec] = useState<Record<string, CommuneResult>>({});
-  const [communeSocio, setCommuneSocio] = useState<Record<string, CommuneSocioEco>>({});
+  const [communeElec, setCommuneElec] = useState<Record<string, any>>({});
+  const [communeSocio, setCommuneSocio] = useState<Record<string, any>>({});
   const [communeNames, setCommuneNames] = useState<Record<string, string>>({});
   const [communeGeoJSON, setCommuneGeoJSON] = useState<any>(null); // Les limites geo des communes
 

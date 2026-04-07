@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import { DeptResult, CommuneResult, CommuneSocioEco, getCandidateColor } from "@/lib/electionData";
+import { DeptResult, getCandidateColor } from "@/lib/electionData";
 import { Indicator } from "@/components/Controls/IndicatorSelector";
 import { useVirtualizer } from '@tanstack/react-virtual';
 
@@ -10,8 +10,8 @@ interface SocioEcoTableProps {
   socioeco: Record<string, Record<string, number>>;
   selectedCandidate: string;
   indicator: Indicator;
-  communeElec?: Record<string, CommuneResult>;
-  communeSocio?: Record<string, CommuneSocioEco>;
+  communeElec?: Record<string, any>;
+  communeSocio?: Record<string, any>;
   communeNames?: Record<string, string>;
   selectedDeptCode?: string | null;
 }
