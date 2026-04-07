@@ -243,7 +243,7 @@ export default function ElectionMap({
       const source = map.getSource('departments');
       if (source) {
         const data = source._data; // MapLibre internal, might need a cleaner way if typing is strict
-        const feature = data.features.find((f: any) => f.properties.code === selectedDeptCode);
+        const feature = data && data.features ? data.features.find((f: any) => f.properties.code === selectedDeptCode) : null;
         
         if (feature) {
           const bbox = turf.bbox(feature);

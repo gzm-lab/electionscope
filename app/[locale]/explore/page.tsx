@@ -75,21 +75,7 @@ export default function ExplorePage() {
     
     // On preload les stats socioeco communes au démarrage
     loadCommuneSocioEco().then(setCommuneSocio).catch(console.error);
-    // On preload le TopoJSON
-    fetch("/data/communes_topojson.json")
-      .then(res => {
-         if (res.ok) return res.json();
-         // S'il n'y a pas un seul gros TopoJSON, on gère autrement plus bas,
-         // on le fait à la demande lors de la sélection du département.
-         throw new Error("Pas de fichier unique");
-      })
-      .then(data => {
-         if (data && data.objects) {
-             const geojson = require("topojson-client").feature(data, Object.values(data.objects)[0]);
-             setCommuneGeoJSON(geojson);
-         }
-      })
-      .catch(() => setCommuneGeoJSON(null));
+
   }, []);
 
   const candidates = useMemo(() => {
@@ -106,6 +92,28 @@ export default function ExplorePage() {
     if (!election) return {};
     return selectedTour === 1 ? election.national_t1 : election.national_t2;
   }, [index, selectedYear, selectedTour]);
+
+  // Charger le GeoJSON du département quand il est sélectionné
+  useEffect(() => {
+    if (!selectedDept) {
+      setCommuneGeoJSON(null);
+      return;
+    }
+    const deptCode = selectedDept.code;
+    fetch(`/data/geojson/communes-${deptCode}.json`)
+      .then(res => {
+        if (!res.ok) throw new Error("Erreur chargement topojson");
+        return res.json();
+      })
+      .then(data => {
+        const topojson = require("topojson-client");
+        // Les objets peuvent avoir des clés différentes selon comment tu as généré le fichier (ex: "communes" ou "layer")
+        const objectKey = Object.keys(data.objects)[0];
+        const geojson = topojson.feature(data, data.objects[objectKey]);
+        setCommuneGeoJSON(geojson);
+      })
+      .catch(console.error);
+  }, [selectedDept]);
 
   useEffect(() => {
     setLoading(true);
@@ -148,11 +156,8 @@ export default function ExplorePage() {
     
     const deptPrefix = selectedDept.code;
     
-    // Filtrer les communes du département
-    const deptFeatures = communeGeoJSON.features.filter((f: any) => {
-       const code = f.properties.code || f.id;
-       return code && String(code).startsWith(deptPrefix);
-    });
+    // Filtrer les communes du département (on a déjà chargé que ce département)
+    const deptFeatures = communeGeoJSON.features || [];
 
     // Assigner la couleur à chaque feature (on le fait ici pour soulager Mapbox)
     const featuresWithColor = deptFeatures.map((f: any) => {
