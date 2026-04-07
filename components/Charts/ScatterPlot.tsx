@@ -9,8 +9,11 @@ import { Indicator } from "@/components/Controls/IndicatorSelector";
 interface ScatterPlotProps {
   results: DeptResult[];
   socioeco: Record<string, Record<string, number>>;
-  selectedCandidate: string;
+  selectedCandidate: string | null;
   indicator: Indicator;
+  communeElec?: Record<string, any>;
+  communeSocio?: Record<string, any>;
+  selectedDeptCode?: string | null;
 }
 
 const INDICATOR_LABELS: Record<Indicator, string> = {
