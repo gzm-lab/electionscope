@@ -23,8 +23,8 @@ export default function CandidateBar({
   const mainCandidates = candidates.filter((c) => c !== "Autres");
 
   return (
-    <div className="shrink-0 border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-sm px-2 md:px-4 py-2">
-      <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+    <div className="shrink-0 border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-sm px-2 md:px-6 py-2 md:py-3">
+      <div className="flex items-center gap-2 md:gap-4 overflow-x-auto scrollbar-hide">
 
         {/* Bouton Gagnants */}
         <motion.button
@@ -36,8 +36,8 @@ export default function CandidateBar({
               : "hover:bg-white/5"
           }`}
         >
-          <span className="text-base leading-none">🗺️</span>
-          <span className={`text-[10px] font-semibold leading-none whitespace-nowrap ${
+          <span className="text-base md:text-xl leading-none">🗺️</span>
+          <span className={`text-[10px] md:text-sm font-semibold leading-none whitespace-nowrap ${
             mapMode === "winner" ? "text-white" : "text-gray-500"
           }`}>
             Gagnants
@@ -84,14 +84,14 @@ export default function CandidateBar({
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="w-2 h-2 rounded-full bg-white/80"
+                    className="w-2 h-2 md:w-4 md:h-4 rounded-full bg-white/80"
                   />
                 )}
               </div>
 
               {/* Nom */}
               <span
-                className="text-[10px] font-semibold leading-none whitespace-nowrap"
+                className="text-[10px] md:text-sm font-semibold leading-none whitespace-nowrap"
                 style={{ color: isSelected ? color : "#6b7280" }}
               >
                 {shortName}
@@ -100,7 +100,7 @@ export default function CandidateBar({
               {/* Score national */}
               {score !== undefined && (
                 <span
-                  className="text-[9px] leading-none font-medium"
+                  className="text-[10px] md:text-xs leading-none font-medium"
                   style={{ color: isSelected ? `${color}cc` : "#374151" }}
                 >
                   {score.toFixed(1)}%

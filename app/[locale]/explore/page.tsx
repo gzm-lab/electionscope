@@ -283,7 +283,7 @@ export default function ExplorePage() {
             </div>
 
             {/* Scatter + sélecteur indicateur */}
-            <div className="glass rounded-xl overflow-hidden shrink-0 flex flex-col" style={{ maxHeight: 280 }}>
+            <div className="glass rounded-xl overflow-hidden shrink-0 flex flex-col max-h-[280px] lg:max-h-[380px]">
               {/* Header */}
               <div className="flex items-center justify-between px-3 pt-3 pb-1 shrink-0">
                 <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
@@ -302,7 +302,7 @@ export default function ExplorePage() {
               {mapMode === "candidate" && selectedCandidate && results.length > 0 ? (
                 <>
                   {/* Scatter plot */}
-                  <div className="shrink-0 px-2 pb-1 flex-1 min-h-0" style={{ height: 180 }}>
+                  <div className="shrink-0 px-2 pb-1 flex-1 min-h-[180px] lg:min-h-[260px]">
                     <ScatterPlot
                       results={results}
                       socioeco={socioeco}
