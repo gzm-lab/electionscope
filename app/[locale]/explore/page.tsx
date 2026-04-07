@@ -425,6 +425,9 @@ export default function ExplorePage() {
                       socioeco={socioeco}
                       selectedCandidate={selectedCandidate}
                       indicator={indicator}
+                      communeElec={communeElec}
+                      communeSocio={communeSocio}
+                      selectedDeptCode={selectedDept?.code}
                     />
                   </div>
 
