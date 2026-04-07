@@ -80,6 +80,8 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
     // Mode Département (communes d'un dept) ou France entière (toutes les communes)
     // if communeElec est vide ({}), on ne doit pas entrer dans ce bloc pour ne pas afficher 0 points !
     const hasCommuneData = communeElec && Object.keys(communeElec).length > 0 && communeSocio && Object.keys(communeSocio).length > 0;
+    console.log("hasCommuneData:", hasCommuneData, "communeElec keys:", communeElec ? Object.keys(communeElec).length : 0, "communeSocio keys:", communeSocio ? Object.keys(communeSocio).length : 0);
+
     
     if (hasCommuneData) {
       const targetCodes = selectedDeptCode 
@@ -103,6 +105,7 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       }).filter(Boolean) as { x: number; y: number; name: string; code: string }[];
     } else {
       // Mode Départements "classique" (fallback)
+      console.warn("ScatterPlot in FALLBACK mode. hasCommuneData was false.");
       data = results
         .map((r) => {
           const eco = socioeco[r.code];
@@ -184,12 +187,20 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
         const cx = margin.left + xScale(d.x);
         const cy = margin.top + yScale(d.y);
         ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
-        ctx.fillStyle = colorScale(d.y);
-        ctx.fill();
-        ctx.lineWidth = 0.8;
-        ctx.strokeStyle = "rgba(255,255,255,0.15)";
-        ctx.stroke();
+        
+        // Si plus de 1000 points, c'est les communes : on dessine un petit cercle sans stroke car ça rend un paté
+        if (data.length > 1000) {
+            ctx.arc(cx, cy, 2.5, 0, 2 * Math.PI);
+            ctx.fillStyle = colorScale(d.y).replace(')', ', 0.8)').replace('rgb', 'rgba');
+            ctx.fill();
+        } else {
+            ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = colorScale(d.y);
+            ctx.fill();
+            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = "rgba(255,255,255,0.3)";
+            ctx.stroke();
+        }
       });
 
       if (hoverIndex !== null) {
