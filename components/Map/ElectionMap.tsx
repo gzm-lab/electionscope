@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import * as d3 from "d3";
+import { motion, AnimatePresence } from "framer-motion";
 import * as turf from "@turf/turf";
 import { DeptResult, getCandidateColor, getWinnerMap } from "@/lib/electionData";
 
 interface ElectionMapProps {
   results: DeptResult[];
-  selectedCandidate: string | null; // null = winner mode
+  selectedCandidate: string | null;
   mapMode: "candidate" | "winner";
   onDeptClick: (dept: DeptResult) => void;
+  selectedDeptCode?: string | null;
+  communeData?: any; // To be passed when a dept is selected
 }
 
 interface TooltipData {
@@ -24,6 +26,8 @@ export default function ElectionMap({
   selectedCandidate,
   mapMode,
   onDeptClick,
+  selectedDeptCode,
+  communeData
 }: ElectionMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<any>(null);
@@ -99,7 +103,55 @@ export default function ElectionMap({
           paint: { "line-color": "#ffffff", "line-width": 2, "line-opacity": 0.6 },
         });
 
+        // Communes source (empty initially)
+        map.addSource("communes", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+
+        map.addLayer({
+          id: "communes-fill",
+          type: "fill",
+          source: "communes",
+          paint: { 
+            "fill-color": ["get", "color"], 
+            "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 1, 0.8] 
+          },
+        });
+
+        map.addLayer({
+          id: "communes-border",
+          type: "line",
+          source: "communes",
+          paint: { "line-color": "rgba(255,255,255,0.1)", "line-width": 0.5 },
+        });
+
+
         // Mouse events
+        // Communes mouse events
+        let hoveredCommuneId: string | null = null;
+        map.on("mousemove", "communes-fill", (e) => {
+          if (!e.features?.length) return;
+          const feature = e.features[0];
+          map.getCanvas().style.cursor = "pointer";
+          
+          if (hoveredCommuneId !== null) {
+            map.setFeatureState({ source: "communes", id: hoveredCommuneId }, { hover: false });
+          }
+          hoveredCommuneId = feature.id as string;
+          map.setFeatureState({ source: "communes", id: hoveredCommuneId }, { hover: true });
+          
+          // Format tooltip for commune
+          // You'll need to adapt this based on the exact structure of your commune data
+          // setTooltip({ x: e.point.x, y: e.point.y, isCommune: true, data: feature.properties });
+        });
+
+        map.on("mouseleave", "communes-fill", () => {
+          map.getCanvas().style.cursor = "";
+          if (hoveredCommuneId !== null) {
+            map.setFeatureState({ source: "communes", id: hoveredCommuneId }, { hover: false });
+            hoveredCommuneId = null;
+          }
+          // setTooltip(null);
+        });
+
         map.on("mousemove", "departments-fill", (e) => {
           if (!e.features?.length) return;
           const code = e.features[0].properties?.code;
@@ -121,7 +173,13 @@ export default function ElectionMap({
           if (!e.features?.length) return;
           const code = e.features[0].properties?.code;
           const dept = resultsMapRef.current[code];
-          if (dept) onDeptClick(dept);
+          if (dept) {
+            if (selectedDeptCode === code) {
+              onDeptClick(null as any); // Toggle off if clicked again
+            } else {
+              onDeptClick(dept);
+            }
+          }
         });
 
         setMapReady(true);
@@ -174,6 +232,51 @@ export default function ElectionMap({
       map.setPaintProperty("departments-fill", "fill-color", colorExpr);
     }
   }, [results, selectedCandidate, mapMode, mapReady]);
+
+  // Handle department selection (zoom + communes)
+  useEffect(() => {
+    const map = mapInstance.current;
+    if (!map || !mapReady) return;
+
+    if (selectedDeptCode) {
+      // Find the department feature to get its bounds
+      const source = map.getSource('departments');
+      if (source) {
+        const data = source._data; // MapLibre internal, might need a cleaner way if typing is strict
+        const feature = data.features.find((f: any) => f.properties.code === selectedDeptCode);
+        
+        if (feature) {
+          const bbox = turf.bbox(feature);
+          map.fitBounds(bbox, { padding: 40, duration: 1000 });
+          
+          // Fade out other departments
+          map.setPaintProperty("departments-fill", "fill-opacity", 
+            ["case", ["==", ["get", "code"], selectedDeptCode], 0, 0.1]
+          );
+        }
+      }
+      
+      // Update communes data if available
+      if (communeData) {
+        // Here we'd add color property to each feature based on results
+        // For now, just setting the data
+        const communeSource = map.getSource('communes');
+        if (communeSource) {
+          communeSource.setData(communeData);
+        }
+      }
+    } else {
+      // Reset view
+      map.flyTo({ center: [2.3, 46.5], zoom: typeof window !== "undefined" && window.innerWidth < 768 ? 4.0 : 4.8, duration: 1000 });
+      map.setPaintProperty("departments-fill", "fill-opacity", 0.9);
+      
+      // Clear communes
+      const communeSource = map.getSource('communes');
+      if (communeSource) {
+        communeSource.setData({ type: "FeatureCollection", features: [] });
+      }
+    }
+  }, [selectedDeptCode, communeData, mapReady]);
 
   // Determine winner for tooltip
   const getLeader = (dept: DeptResult) => {
