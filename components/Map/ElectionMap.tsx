@@ -34,6 +34,7 @@ export default function ElectionMap({
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const [mapReady, setMapReady] = useState(false);
   const resultsMapRef = useRef<Record<string, DeptResult>>({});
+  const deptGeoJSONRef = useRef<any>(null);
 
   useEffect(() => {
     resultsMapRef.current = Object.fromEntries(results.map((r) => [r.code, r]));
