@@ -181,7 +181,10 @@ export default function ExplorePage() {
         
         if (result) {
             if (mapMode === "candidate" && selectedCandidate) {
-                 const pct = result[selectedCandidate]?.pct || 0;
+                 // Les noms dans communeElec sont "NOM Prénom" (ex: "MACRON Emmanuel")
+                 // selectedCandidate est "Macron"
+                 const candidateKey = Object.keys(result).find(k => k.toLowerCase().includes(selectedCandidate.toLowerCase()));
+                 const pct = candidateKey ? result[candidateKey]?.pct : 0;
                  const baseColor = getCandidateColor(selectedCandidate);
                  // On crée un dégradé simple (ou on peut utiliser D3, mais voici un algo rapide)
                  const alpha = Math.min(1, 0.2 + (pct / 50) * 0.8);
@@ -198,7 +201,11 @@ export default function ExplorePage() {
                  }
             } else if (mapMode === "winner") {
                  const winner = getCommuneWinner(result);
-                 if (winner) color = getCandidateColor(winner.name);
+                 if (winner) {
+                     // winner.name est "MACRON Emmanuel", on le map avec "candidates" du state
+                     const shortName = candidates.find(c => winner.name.toLowerCase().includes(c.toLowerCase())) || winner.name;
+                     color = getCandidateColor(shortName);
+                 }
             }
         }
         
