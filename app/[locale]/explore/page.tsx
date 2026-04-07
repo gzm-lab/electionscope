@@ -21,6 +21,8 @@ import {
   ElectionIndex,
   getCandidateColor,
 } from "@/lib/electionData";
+import { loadCommuneResults, loadCommuneSocioEco, CommuneResult, CommuneSocioEco, getCommuneWinner } from "@/lib/communeData";
+import * as turf from "@turf/turf";
 
 const ElectionMap = dynamic(() => import("@/components/Map/ElectionMap"), {
   ssr: false,
@@ -57,6 +59,12 @@ export default function ExplorePage() {
   const [socioeco, setSocioeco] = useState<Record<string, Record<string, number>>>({});
   const [indicator, setIndicator] = useState<Indicator>("revenue");
 
+  // --- Données Communes (Chantier 4) ---
+  const [communeElec, setCommuneElec] = useState<Record<string, CommuneResult>>({});
+  const [communeSocio, setCommuneSocio] = useState<Record<string, CommuneSocioEco>>({});
+  const [communeGeoJSON, setCommuneGeoJSON] = useState<any>(null); // Les limites geo des communes
+
+
   const [sidebarTab, setSidebarTab] = useState<"controls" | "results">("controls");
   const [showTimeline, setShowTimeline] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -64,6 +72,24 @@ export default function ExplorePage() {
   useEffect(() => {
     loadIndex().then(setIndex);
     fetch("/data/socioeco.json").then(r => r.json()).then(setSocioeco);
+    
+    // On preload les stats socioeco communes au démarrage
+    loadCommuneSocioEco().then(setCommuneSocio).catch(console.error);
+    // On preload le TopoJSON
+    fetch("/data/communes_topojson.json")
+      .then(res => {
+         if (res.ok) return res.json();
+         // S'il n'y a pas un seul gros TopoJSON, on gère autrement plus bas,
+         // on le fait à la demande lors de la sélection du département.
+         throw new Error("Pas de fichier unique");
+      })
+      .then(data => {
+         if (data && data.objects) {
+             const geojson = require("topojson-client").feature(data, Object.values(data.objects)[0]);
+             setCommuneGeoJSON(geojson);
+         }
+      })
+      .catch(() => setCommuneGeoJSON(null));
   }, []);
 
   const candidates = useMemo(() => {
@@ -87,6 +113,12 @@ export default function ExplorePage() {
       setResults(data);
       setLoading(false);
     });
+    
+    // Charge les résultats pour toutes les communes
+    loadCommuneResults(selectedYear, selectedTour)
+      .then(setCommuneElec)
+      .catch(console.error);
+      
     setSelectedDept(null);
   }, [selectedYear, selectedTour]);
 
@@ -109,6 +141,56 @@ export default function ExplorePage() {
   }, []);
 
   const effectiveCandidate = mapMode === "candidate" ? selectedCandidate : (candidates[0] ?? null);
+
+  // --- Préparation des données communes pour la carte ---
+  const mapCommuneData = useMemo(() => {
+    if (!selectedDept || !communeGeoJSON || !communeElec || !selectedCandidate) return null;
+    
+    const deptPrefix = selectedDept.code;
+    
+    // Filtrer les communes du département
+    const deptFeatures = communeGeoJSON.features.filter((f: any) => {
+       const code = f.properties.code || f.id;
+       return code && String(code).startsWith(deptPrefix);
+    });
+
+    // Assigner la couleur à chaque feature (on le fait ici pour soulager Mapbox)
+    const featuresWithColor = deptFeatures.map((f: any) => {
+        const code = f.properties.code || f.id;
+        const result = communeElec[code];
+        
+        let color = "rgba(0,0,0,0)";
+        
+        if (result) {
+            if (mapMode === "candidate" && selectedCandidate) {
+                 const pct = result[selectedCandidate]?.pct || 0;
+                 const baseColor = getCandidateColor(selectedCandidate);
+                 // On crée un dégradé simple (ou on peut utiliser D3, mais voici un algo rapide)
+                 const alpha = Math.min(1, 0.2 + (pct / 50) * 0.8);
+                 color = baseColor.replace('rgb', 'rgba').replace(')', `, ${alpha})`).replace('#', '');
+                 if (color.length === 6) { // Si Hex
+                    const r = parseInt(color.slice(0, 2), 16), g = parseInt(color.slice(2, 4), 16), b = parseInt(color.slice(4, 6), 16);
+                    color = `rgba(${r},${g},${b},${alpha})`;
+                 }
+            } else if (mapMode === "winner") {
+                 const winner = getCommuneWinner(result);
+                 if (winner) color = getCandidateColor(winner.name);
+            }
+        }
+        
+        return {
+            ...f,
+            properties: {
+                ...f.properties,
+                color,
+                result: result || null
+            }
+        };
+    });
+
+    return { type: "FeatureCollection", features: featuresWithColor };
+  }, [selectedDept, communeGeoJSON, communeElec, selectedCandidate, mapMode]);
+
 
   // Sidebar/sheet content
   const sidebarContent = (
@@ -278,6 +360,8 @@ export default function ExplorePage() {
                 selectedCandidate={selectedCandidate}
                 mapMode={mapMode}
                 onDeptClick={setSelectedDept}
+                selectedDeptCode={selectedDept?.code}
+                communeData={mapCommuneData}
               />
               <DeptPanel dept={selectedDept} onClose={() => setSelectedDept(null)} />
             </div>
