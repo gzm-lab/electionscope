@@ -1,56 +1,6 @@
 // Election years and candidates data
 export const ELECTIONS = [
   {
-    year: 1965,
-    candidates: [
-      { id: "degaulle", name: "Charles de Gaulle", party: "UNR", color: "#1d4ed8" },
-      { id: "mitterrand", name: "François Mitterrand", party: "FGDS", color: "#dc2626" },
-      { id: "lecanuet", name: "Jean Lecanuet", party: "MRP", color: "#16a34a" },
-    ],
-  },
-  {
-    year: 1969,
-    candidates: [
-      { id: "pompidou", name: "Georges Pompidou", party: "UDR", color: "#1d4ed8" },
-      { id: "poher", name: "Alain Poher", party: "CD", color: "#d97706" },
-      { id: "duclos", name: "Jacques Duclos", party: "PCF", color: "#dc2626" },
-    ],
-  },
-  {
-    year: 1974,
-    candidates: [
-      { id: "giscard", name: "Valéry Giscard d'Estaing", party: "RI", color: "#1d4ed8" },
-      { id: "mitterrand74", name: "François Mitterrand", party: "PS", color: "#dc2626" },
-      { id: "chaban", name: "Jacques Chaban-Delmas", party: "UDR", color: "#7c3aed" },
-    ],
-  },
-  {
-    year: 1981,
-    candidates: [
-      { id: "mitterrand81", name: "François Mitterrand", party: "PS", color: "#dc2626" },
-      { id: "giscard81", name: "Valéry Giscard d'Estaing", party: "UDF", color: "#1d4ed8" },
-      { id: "chirac81", name: "Jacques Chirac", party: "RPR", color: "#7c3aed" },
-    ],
-  },
-  {
-    year: 1988,
-    candidates: [
-      { id: "mitterrand88", name: "François Mitterrand", party: "PS", color: "#dc2626" },
-      { id: "chirac88", name: "Jacques Chirac", party: "RPR", color: "#1d4ed8" },
-      { id: "barre", name: "Raymond Barre", party: "UDF", color: "#d97706" },
-      { id: "lepen88", name: "Jean-Marie Le Pen", party: "FN", color: "#b45309" },
-    ],
-  },
-  {
-    year: 1995,
-    candidates: [
-      { id: "chirac95", name: "Jacques Chirac", party: "RPR", color: "#1d4ed8" },
-      { id: "jospin", name: "Lionel Jospin", party: "PS", color: "#dc2626" },
-      { id: "balladur", name: "Édouard Balladur", party: "RPR", color: "#7c3aed" },
-      { id: "lepen95", name: "Jean-Marie Le Pen", party: "FN", color: "#b45309" },
-    ],
-  },
-  {
     year: 2002,
     candidates: [
       { id: "chirac02", name: "Jacques Chirac", party: "RPR", color: "#1d4ed8" },
