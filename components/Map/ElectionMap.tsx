@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as d3 from "d3";
+import * as turf from "@turf/turf";
 import { DeptResult, getCandidateColor, getWinnerMap } from "@/lib/electionData";
 
 interface ElectionMapProps {
