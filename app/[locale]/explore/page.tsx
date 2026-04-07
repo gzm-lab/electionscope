@@ -100,7 +100,7 @@ export default function ExplorePage() {
       return;
     }
     const deptCode = selectedDept.code;
-    fetch(`/data/geojson/communes-${deptCode}.json`)
+    fetch(`/data/geo/communes_dept_${deptCode}.topojson`)
       .then(res => {
         if (!res.ok) throw new Error("Erreur chargement topojson");
         return res.json();
