@@ -35,10 +35,17 @@ export default function ElectionMap({
   const [mapReady, setMapReady] = useState(false);
   const resultsMapRef = useRef<Record<string, DeptResult>>({});
   const deptGeoJSONRef = useRef<any>(null);
+  const communeDataRef = useRef<Record<string, CommuneResult> | undefined>();
+  const communeNamesRef = useRef<Record<string, string> | undefined>();
 
   useEffect(() => {
     resultsMapRef.current = Object.fromEntries(results.map((r) => [r.code, r]));
   }, [results]);
+
+  useEffect(() => {
+    communeDataRef.current = communeData;
+    communeNamesRef.current = communeNames;
+  }, [communeData, communeNames]);
 
   // Init map once
   useEffect(() => {
@@ -154,7 +161,7 @@ export default function ElectionMap({
             map.setFeatureState({ source: "communes", id: hoveredCommuneId }, { hover: false });
             hoveredCommuneId = null;
           }
-          // setTooltip(null);
+          setTooltip(null);
         });
 
         map.on("mousemove", "departments-fill", (e) => {
@@ -342,32 +349,54 @@ export default function ElectionMap({
               top: tooltip.y > 150 ? tooltip.y - 130 : tooltip.y + 14,
             }}
           >
-            <div className="font-bold text-white text-sm mb-2.5">{tooltip.dept.name}</div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: tooltipColor }} />
-              <span className="text-gray-300 text-xs font-medium">{tooltipName}</span>
-              <span className="ml-auto text-base font-black" style={{ color: tooltipColor }}>
-                {tooltipScore.toFixed(1)}%
-              </span>
-            </div>
-            {mapMode === "winner" && (
-              <div className="mt-2 pt-2 border-t border-white/10 space-y-1">
-                {Object.entries(tooltip.dept.candidates)
-                  .sort((a, b) => b[1].pct - a[1].pct)
-                  .slice(0, 4)
-                  .map(([name, res]) => (
-                    <div key={name} className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: getCandidateColor(name) }} />
-                      <span className="text-gray-500 text-xs truncate max-w-[90px]">{name}</span>
-                      <span className="ml-auto text-xs text-gray-300 font-semibold">{res.pct.toFixed(1)}%</span>
+            {tooltip.isCommune && tooltip.commune ? (
+              <>
+                <div className="font-bold text-white text-sm mb-2.5">{tooltip.commune.name} <span className="text-gray-500 font-normal text-xs ml-1">({tooltip.commune.code})</span></div>
+                {(() => {
+                  const candKey = Object.keys(tooltip.commune.result).find(k => k.toLowerCase().includes((selectedCandidate || "").toLowerCase()));
+                  const cScore = candKey ? tooltip.commune.result[candKey]?.pct : 0;
+                  const cColor = selectedCandidate ? getCandidateColor(selectedCandidate) : "#3b82f6";
+                  return (
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: cColor }} />
+                      <span className="text-gray-300 text-xs font-medium">{selectedCandidate}</span>
+                      <span className="ml-auto text-base font-black" style={{ color: cColor }}>
+                        {cScore?.toFixed(1)}%
+                      </span>
                     </div>
-                  ))}
-              </div>
-            )}
-            <div className="mt-2 pt-2 border-t border-white/10 text-xs text-gray-500 flex justify-between">
-              <span>Participation</span>
-              <span className="text-gray-400 font-semibold">{tooltip.dept.turnout}%</span>
-            </div>
+                  );
+                })()}
+              </>
+            ) : tooltip.dept ? (
+              <>
+                <div className="font-bold text-white text-sm mb-2.5">{tooltip.dept.name}</div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: tooltipColor }} />
+                  <span className="text-gray-300 text-xs font-medium">{tooltipName}</span>
+                  <span className="ml-auto text-base font-black" style={{ color: tooltipColor }}>
+                    {tooltipScore.toFixed(1)}%
+                  </span>
+                </div>
+                {mapMode === "winner" && (
+                  <div className="mt-2 pt-2 border-t border-white/10 space-y-1">
+                    {Object.entries(tooltip.dept.candidates)
+                      .sort((a, b) => b[1].pct - a[1].pct)
+                      .slice(0, 4)
+                      .map(([name, res]) => (
+                        <div key={name} className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: getCandidateColor(name) }} />
+                          <span className="text-gray-500 text-xs truncate max-w-[90px]">{name}</span>
+                          <span className="ml-auto text-xs text-gray-300 font-semibold">{res.pct.toFixed(1)}%</span>
+                        </div>
+                      ))}
+                  </div>
+                )}
+                <div className="mt-2 pt-2 border-t border-white/10 text-xs text-gray-500 flex justify-between">
+                  <span>Participation</span>
+                  <span className="text-gray-400 font-semibold">{tooltip.dept.turnout}%</span>
+                </div>
+              </>
+            ) : null}
           </motion.div>
         )}
       </AnimatePresence>
