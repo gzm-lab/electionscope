@@ -172,10 +172,16 @@ export default function ExplorePage() {
                  const baseColor = getCandidateColor(selectedCandidate);
                  // On crée un dégradé simple (ou on peut utiliser D3, mais voici un algo rapide)
                  const alpha = Math.min(1, 0.2 + (pct / 50) * 0.8);
-                 color = baseColor.replace('rgb', 'rgba').replace(')', `, ${alpha})`).replace('#', '');
-                 if (color.length === 6) { // Si Hex
-                    const r = parseInt(color.slice(0, 2), 16), g = parseInt(color.slice(2, 4), 16), b = parseInt(color.slice(4, 6), 16);
+                 if (baseColor.startsWith('#')) {
+                    const hex = baseColor.replace('#', '');
+                    const r = parseInt(hex.substring(0, 2), 16);
+                    const g = parseInt(hex.substring(2, 4), 16);
+                    const b = parseInt(hex.substring(4, 6), 16);
                     color = `rgba(${r},${g},${b},${alpha})`;
+                 } else if (baseColor.startsWith('rgb')) {
+                    color = baseColor.replace('rgb', 'rgba').replace(')', `, ${alpha})`);
+                 } else {
+                    color = baseColor;
                  }
             } else if (mapMode === "winner") {
                  const winner = getCommuneWinner(result);
