@@ -78,7 +78,10 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
     let data: { x: number; y: number; name: string; code: string }[] = [];
 
     // Mode Département (communes d'un dept) ou France entière (toutes les communes)
-    if (communeElec && communeSocio) {
+    // if communeElec est vide ({}), on ne doit pas entrer dans ce bloc pour ne pas afficher 0 points !
+    const hasCommuneData = communeElec && Object.keys(communeElec).length > 0 && communeSocio && Object.keys(communeSocio).length > 0;
+    
+    if (hasCommuneData) {
       const targetCodes = selectedDeptCode 
         ? Object.keys(communeElec).filter(c => c.startsWith(selectedDeptCode))
         : Object.keys(communeElec);
