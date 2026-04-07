@@ -42,16 +42,14 @@ const INDICATOR_FORMAT: Record<Indicator, (v: number) => string> = {
 };
 
 export default function ScatterPlot({ results, socioeco, selectedCandidate, indicator }: ScatterPlotProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!svgRef.current || !selectedCandidate) return;
+    if (!canvasRef.current || !svgRef.current || !selectedCandidate) return;
 
-    const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove();
-
-    const container = svgRef.current.parentElement;
+    const container = canvasRef.current.parentElement;
     if (!container) return;
 
     const totalWidth = container.clientWidth || 600;
@@ -60,7 +58,20 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
     const width = totalWidth - margin.left - margin.right;
     const height = totalHeight - margin.top - margin.bottom;
 
-    // Build data — join results with socioeco
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = totalWidth * dpr;
+    canvas.height = totalHeight * dpr;
+    ctx.scale(dpr, dpr);
+    canvas.style.width = `${totalWidth}px`;
+    canvas.style.height = `${totalHeight}px`;
+
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove();
+
     const data = results
       .map((r) => {
         const eco = socioeco[r.code];
@@ -84,7 +95,6 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Grid
     g.append("g")
       .call(d3.axisBottom(xScale).tickSize(-height).tickFormat(() => ""))
       .attr("transform", `translate(0,${height})`)
@@ -94,7 +104,6 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .selectAll("line").attr("stroke", "rgba(255,255,255,0.05)").attr("stroke-dasharray", "3,3");
     g.selectAll(".domain").remove();
 
-    // Axes
     g.append("g")
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(xScale).ticks(5))
@@ -108,7 +117,6 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .call(ax => ax.selectAll("text").attr("fill", "rgba(255,255,255,0.35)").style("font-size", "10px"))
       .call(ax => ax.selectAll(".tick line").attr("stroke", "none"));
 
-    // Axis labels
     g.append("text")
       .attr("x", width / 2).attr("y", height + 42)
       .attr("text-anchor", "middle").attr("fill", "rgba(255,255,255,0.3)").style("font-size", "10px")
@@ -119,7 +127,6 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .attr("text-anchor", "middle").attr("fill", "rgba(255,255,255,0.3)").style("font-size", "10px")
       .text(`Score ${selectedCandidate} (%)`);
 
-    // Trend line
     const mx = d3.mean(xs)!;
     const my = d3.mean(ys)!;
     const slope = d3.sum(xs.map((x, i) => (x - mx) * (ys[i] - my))) / d3.sum(xs.map((x) => (x - mx) ** 2));
@@ -131,30 +138,72 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .attr("x2", xScale(x2)).attr("y2", yScale(slope * x2 + intercept))
       .attr("stroke", color).attr("stroke-width", 1.5).attr("stroke-dasharray", "6,4").attr("opacity", 0.45);
 
-    // Color scale for dots
     const colorScale = d3.scaleSequential()
       .domain(d3.extent(ys) as [number, number])
       .interpolator(d3.interpolateRgb("rgba(59,130,246,0.2)", color));
 
-    // Dots
-    const tooltip = d3.select(tooltipRef.current!);
+    ctx.clearRect(0, 0, totalWidth, totalHeight);
+    const radius = 3;
+    
+    const drawPoints = (hoverIndex: number | null) => {
+      ctx.clearRect(0, 0, totalWidth, totalHeight);
+      data.forEach((d, i) => {
+        if (i === hoverIndex) return;
+        const cx = margin.left + xScale(d.x);
+        const cy = margin.top + yScale(d.y);
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = colorScale(d.y);
+        ctx.fill();
+        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = "rgba(255,255,255,0.15)";
+        ctx.stroke();
+      });
 
-    g.selectAll("circle")
-      .data(data)
-      .enter()
-      .append("circle")
-      .attr("cx", (d) => xScale(d.x))
-      .attr("cy", height)
-      .attr("r", 0)
-      .attr("fill", (d) => colorScale(d.y))
-      .attr("stroke", "rgba(255,255,255,0.15)")
-      .attr("stroke-width", 0.8)
-      .style("cursor", "pointer")
-      .on("mouseover", function (event, d) {
-        d3.select(this).raise().attr("r", 7).attr("stroke", "rgba(255,255,255,0.6)").attr("stroke-width", 1.5);
-        const svgRect = svgRef.current!.getBoundingClientRect();
-        const cx = +d3.select(this).attr("cx") + margin.left;
-        const cy = +d3.select(this).attr("cy") + margin.top;
+      if (hoverIndex !== null) {
+        const d = data[hoverIndex];
+        const cx = margin.left + xScale(d.x);
+        const cy = margin.top + yScale(d.y);
+        ctx.beginPath();
+        ctx.arc(cx, cy, 7, 0, 2 * Math.PI);
+        ctx.fillStyle = colorScale(d.y);
+        ctx.fill();
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = "rgba(255,255,255,0.6)";
+        ctx.stroke();
+      }
+    };
+
+    drawPoints(null);
+
+    const delaunay = d3.Delaunay.from(data, d => xScale(d.x), d => yScale(d.y));
+    const tooltip = d3.select(tooltipRef.current!);
+    
+    svg.on("mousemove", (event) => {
+      const [mx, my] = d3.pointer(event);
+      const x = mx - margin.left;
+      const y = my - margin.top;
+      
+      if (x < 0 || x > width || y < 0 || y > height) {
+        tooltip.style("display", "none");
+        drawPoints(null);
+        return;
+      }
+
+      const index = delaunay.find(x, y);
+      if (index !== null) {
+        const d = data[index];
+        const dist = Math.sqrt(Math.pow(x - xScale(d.x), 2) + Math.pow(y - yScale(d.y), 2));
+        if (dist > 30) {
+          tooltip.style("display", "none");
+          drawPoints(null);
+          return;
+        }
+
+        drawPoints(index);
+
+        const cx = margin.left + xScale(d.x);
+        const cy = margin.top + yScale(d.y);
         tooltip
           .style("display", "block")
           .style("left", `${cx + 10}px`)
@@ -164,22 +213,14 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
             <div class="text-xs" style="color:${color}">${selectedCandidate}: <strong>${d.y.toFixed(1)}%</strong></div>
             <div class="text-xs text-gray-400">${INDICATOR_LABELS[indicator].split(" (")[0]}: ${INDICATOR_FORMAT[indicator](d.x)}</div>
           `);
-      })
-      .on("mousemove", function (event) {
-        const svgRect = svgRef.current!.getBoundingClientRect();
-        const cx = +d3.select(this).attr("cx") + margin.left;
-        const cy = +d3.select(this).attr("cy") + margin.top;
-        tooltip.style("left", `${cx + 10}px`).style("top", `${cy - 60}px`);
-      })
-      .on("mouseout", function () {
-        d3.select(this).attr("r", 5).attr("stroke", "rgba(255,255,255,0.15)").attr("stroke-width", 0.8);
-        tooltip.style("display", "none");
-      })
-      .transition().duration(500).delay((_, i) => i * 6).ease(d3.easeCubicOut)
-      .attr("cy", (d) => yScale(d.y))
-      .attr("r", 5);
+      }
+    });
+    
+    svg.on("mouseleave", () => {
+      tooltip.style("display", "none");
+      drawPoints(null);
+    });
 
-    // Pearson badge — label sémantique selon seuils de Cohen
     const absR = Math.abs(pearson);
     const pearsonColor = absR < 0.1 ? "#6b7280" : absR < 0.3 ? "#f59e0b" : absR < 0.5 ? "#f97316" : "#10b981";
     const pearsonLabel = absR < 0.1 ? "Pas de corr." : absR < 0.3 ? "Corr. faible" : absR < 0.5 ? "Corr. modérée" : "Corr. forte";
@@ -192,23 +233,23 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .attr("stroke", pearsonColor)
       .attr("stroke-width", 1.2)
       .attr("stroke-opacity", 0.5);
-    // Label "Pearson r"
+    
     pearsonG.append("text")
       .attr("x", 54).attr("y", 14).attr("text-anchor", "middle")
       .attr("fill", "rgba(255,255,255,0.35)").style("font-size", "8px").style("letter-spacing", "0.05em")
       .text("PEARSON r");
-    // Valeur numérique
+      
     pearsonG.append("text")
       .attr("x", 54).attr("y", 34).attr("text-anchor", "middle")
       .attr("fill", pearsonColor)
       .style("font-size", "16px").style("font-weight", "bold")
       .text(pearson.toFixed(3));
-    // Label sémantique
+      
     pearsonG.append("text")
       .attr("x", 54).attr("y", 50).attr("text-anchor", "middle")
       .attr("fill", pearsonColor).style("font-size", "8px").style("font-weight", "600")
       .text(pearsonLabel);
-    // Direction
+      
     pearsonG.append("text")
       .attr("x", 54).attr("y", 64).attr("text-anchor", "middle")
       .attr("fill", "rgba(255,255,255,0.25)").style("font-size", "8px")
@@ -218,7 +259,8 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
 
   return (
     <div className="relative w-full h-full">
-      <svg ref={svgRef} className="w-full h-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-10" />
+      <svg ref={svgRef} className="absolute inset-0 w-full h-full z-20 pointer-events-auto" />
       <div
         ref={tooltipRef}
         className="absolute hidden pointer-events-none map-tooltip z-30 text-xs"
