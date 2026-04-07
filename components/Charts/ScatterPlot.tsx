@@ -287,7 +287,7 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .attr("fill", "rgba(255,255,255,0.25)").style("font-size", "8px")
       .text(pearsonSign);
 
-  }, [results, socioeco, selectedCandidate, indicator]);
+  }, [results, socioeco, selectedCandidate, indicator, communeElec, communeSocio, selectedDeptCode]);
 
   return (
     <div className="relative w-full h-full">
