@@ -71,6 +71,7 @@ export default function ElectionMap({
       map.on("load", async () => {
         const res = await fetch("/data/departements-simplifie.geojson");
         const geojson = await res.json();
+        deptGeoJSONRef.current = geojson;
 
         map.addSource("departments", { type: "geojson", data: geojson });
 
@@ -243,14 +244,19 @@ export default function ElectionMap({
 
     if (selectedDeptCode) {
       // Find the department feature to get its bounds
-      const source = map.getSource('departments');
-      if (source) {
-        const data = source._data; // MapLibre internal, might need a cleaner way if typing is strict
-        const feature = data && data.features ? data.features.find((f: any) => f.properties.code === selectedDeptCode) : null;
+      const geojsonData = deptGeoJSONRef.current;
+      if (geojsonData && geojsonData.features) {
+        const feature = geojsonData.features.find((f: any) => f.properties.code === selectedDeptCode);
         
         if (feature) {
-          const bbox = turf.bbox(feature);
-          map.fitBounds(bbox, { padding: 40, duration: 1000 });
+          // On calcule la BBOX
+          const bbox = turf.bbox(feature) as [number, number, number, number];
+          // Et on anime de façon hyper fluide (le easeTo est souvent plus cool, mais fitBounds permet de centrer parfaitement)
+          map.fitBounds(bbox, { 
+             padding: {top: 60, bottom: 60, left: 60, right: 60}, 
+             duration: 1200, // Une seconde, c'est doux
+             essential: true
+          });
           
           // Fade out other departments
           map.setPaintProperty("departments-fill", "fill-opacity", 
@@ -269,8 +275,13 @@ export default function ElectionMap({
         }
       }
     } else {
-      // Reset view
-      map.flyTo({ center: [2.3, 46.5], zoom: typeof window !== "undefined" && window.innerWidth < 768 ? 4.0 : 4.8, duration: 1000 });
+      // Reset view with a nice fly out
+      map.flyTo({ 
+         center: [2.3, 46.5], 
+         zoom: typeof window !== "undefined" && window.innerWidth < 768 ? 4.0 : 4.8, 
+         duration: 1200,
+         essential: true 
+      });
       map.setPaintProperty("departments-fill", "fill-opacity", 0.9);
       
       // Clear communes
