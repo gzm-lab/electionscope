@@ -85,13 +85,26 @@ export default function ExplorePage() {
     return selectedTour === 1 ? election.candidates_t1 : election.candidates_t2;
   }, [index, selectedYear, selectedTour]);
 
-  // Scores nationaux pour la CandidateBar
-  const nationalScores = useMemo(() => {
+  // Scores pour la CandidateBar (Nationaux par défaut, Départementaux si zoom)
+  const displayScores = useMemo(() => {
+    if (selectedDept && results) {
+      // On cherche les résultats du département sélectionné
+      const deptResult = results.find(r => r.code === selectedDept.code);
+      if (deptResult && deptResult.candidates) {
+        const scores: Record<string, number> = {};
+        for (const [name, data] of Object.entries(deptResult.candidates)) {
+          scores[name] = data.pct;
+        }
+        return scores;
+      }
+    }
+    
+    // Sinon scores nationaux
     if (!index) return {};
     const election = index.elections.find((e) => e.year === selectedYear);
     if (!election) return {};
     return selectedTour === 1 ? election.national_t1 : election.national_t2;
-  }, [index, selectedYear, selectedTour]);
+  }, [index, selectedYear, selectedTour, selectedDept, results]);
 
   // Charger le GeoJSON du département quand il est sélectionné
   useEffect(() => {
@@ -301,7 +314,8 @@ export default function ExplorePage() {
         candidates={candidates}
         selectedId={selectedCandidate}
         mapMode={mapMode}
-        nationalScores={nationalScores}
+        scores={displayScores}
+        isLocalMode={!!selectedDept}
         onSelect={handleSelectCandidate}
         onWinnerMode={handleWinnerMode}
       />

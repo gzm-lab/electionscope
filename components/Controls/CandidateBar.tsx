@@ -7,7 +7,8 @@ interface CandidateBarProps {
   candidates: string[];
   selectedId: string | null;
   mapMode: "candidate" | "winner";
-  nationalScores: Record<string, number>; // name → % national
+  scores: Record<string, number>; // name → % national ou départemental
+  isLocalMode?: boolean; // Indique si on regarde le département
   onSelect: (name: string) => void;
   onWinnerMode: () => void;
 }
@@ -16,7 +17,8 @@ export default function CandidateBar({
   candidates,
   selectedId,
   mapMode,
-  nationalScores,
+  scores,
+  isLocalMode = false,
   onSelect,
   onWinnerMode,
 }: CandidateBarProps) {
@@ -26,6 +28,14 @@ export default function CandidateBar({
     <div className="shrink-0 border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-sm px-2 md:px-6 py-2 md:py-3">
       <div className="flex items-center gap-2 md:gap-4 overflow-x-auto scrollbar-hide">
 
+        {/* Mode info */}
+        {isLocalMode && (
+          <div className="shrink-0 flex flex-col justify-center items-start pl-1 pr-3 border-r border-white/10 mr-1">
+            <span className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Département</span>
+            <span className="text-xs text-gray-300 font-medium">Résultats</span>
+          </div>
+        )}
+        
         {/* Bouton Gagnants */}
         <motion.button
           whileTap={{ scale: 0.95 }}
@@ -57,7 +67,7 @@ export default function CandidateBar({
         {mainCandidates.map((name) => {
           const color = getCandidateColor(name);
           const isSelected = mapMode === "candidate" && selectedId === name;
-          const score = nationalScores[name];
+          const score = scores[name];
           // Nom court (nom de famille seulement)
           const shortName = name.split(" ").slice(-1)[0];
 
