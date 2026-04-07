@@ -135,8 +135,11 @@ export default function ElectionMap({
           if (hoveredCommuneId !== null) {
             map.setFeatureState({ source: "communes", id: hoveredCommuneId }, { hover: false });
           }
-          hoveredCommuneId = feature.id as string;
-          map.setFeatureState({ source: "communes", id: hoveredCommuneId }, { hover: true });
+          
+          if (feature.id !== undefined && feature.id !== null) {
+              hoveredCommuneId = feature.id as string;
+              map.setFeatureState({ source: "communes", id: hoveredCommuneId }, { hover: true });
+          }
           
           // Format tooltip for commune
           // You'll need to adapt this based on the exact structure of your commune data

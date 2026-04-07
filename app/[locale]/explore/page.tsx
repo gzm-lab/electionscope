@@ -185,6 +185,7 @@ export default function ExplorePage() {
         
         return {
             ...f,
+            id: code || Math.random().toString(36).substr(2, 9), // MapLibre setFeatureState exige un 'id' racine !
             properties: {
                 ...f.properties,
                 color,
