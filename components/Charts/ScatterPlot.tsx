@@ -41,7 +41,7 @@ const INDICATOR_FORMAT: Record<Indicator, (v: number) => string> = {
   ensoleillement_h:     (v) => `${v.toFixed(0)} h`,
 };
 
-export default function ScatterPlot({ results, socioeco, selectedCandidate, indicator }: ScatterPlotProps) {
+export default function ScatterPlot({ results, socioeco, selectedCandidate, indicator, communeElec, communeSocio, selectedDeptCode }: ScatterPlotProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -72,14 +72,40 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    const data = results
-      .map((r) => {
-        const eco = socioeco[r.code];
-        if (!eco) return null;
-        const score = r.candidates[selectedCandidate]?.pct ?? 0;
-        return { x: eco[indicator as keyof typeof eco] as number, y: score, name: r.name, code: r.code };
-      })
-      .filter(Boolean) as { x: number; y: number; name: string; code: string }[];
+    let data: { x: number; y: number; name: string; code: string }[] = [];
+
+    // Mode Département (communes d'un dept) ou France entière (toutes les communes)
+    if (communeElec && communeSocio) {
+      const targetCodes = selectedDeptCode 
+        ? Object.keys(communeElec).filter(c => c.startsWith(selectedDeptCode))
+        : Object.keys(communeElec);
+        
+      data = targetCodes.map(code => {
+        const cElec = communeElec[code];
+        const cSocio = communeSocio[code];
+        if (!cElec || !cSocio || cSocio[indicator as keyof typeof cSocio] === null || cSocio[indicator as keyof typeof cSocio] === undefined) return null;
+        
+        // On récupère le score (avec le matcher intelligent "Macron" dans "MACRON Emmanuel")
+        const candKey = Object.keys(cElec).find(k => k.toLowerCase().includes(selectedCandidate.toLowerCase()));
+        if (!candKey) return null;
+        
+        const score = cElec[candKey].pct;
+        const valX = cSocio[indicator as keyof typeof cSocio] as number;
+        // Pour les communes, on a le code, mais pas le nom exact dans elecCache/socioCache
+        // On passe juste le code, on affichera "Commune XXXXX" dans le tooltip
+        return { x: valX, y: score, name: "Commune " + code, code };
+      }).filter(Boolean) as { x: number; y: number; name: string; code: string }[];
+    } else {
+      // Mode Départements "classique" (fallback)
+      data = results
+        .map((r) => {
+          const eco = socioeco[r.code];
+          if (!eco) return null;
+          const score = r.candidates[selectedCandidate]?.pct ?? 0;
+          return { x: eco[indicator as keyof typeof eco] as number, y: score, name: r.name, code: r.code };
+        })
+        .filter(Boolean) as { x: number; y: number; name: string; code: string }[];
+    }
 
     if (data.length === 0) return;
 
