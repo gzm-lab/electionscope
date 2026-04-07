@@ -62,6 +62,7 @@ export default function ExplorePage() {
   // --- Données Communes (Chantier 4) ---
   const [communeElec, setCommuneElec] = useState<Record<string, CommuneResult>>({});
   const [communeSocio, setCommuneSocio] = useState<Record<string, CommuneSocioEco>>({});
+  const [communeNames, setCommuneNames] = useState<Record<string, string>>({});
   const [communeGeoJSON, setCommuneGeoJSON] = useState<any>(null); // Les limites geo des communes
 
 
@@ -75,6 +76,7 @@ export default function ExplorePage() {
     
     // On preload les stats socioeco communes au démarrage
     loadCommuneSocioEco().then(setCommuneSocio).catch(console.error);
+    fetch("/data/communes_names.json").then(r => r.json()).then(setCommuneNames).catch(console.error);
 
   }, []);
 
@@ -427,6 +429,7 @@ export default function ExplorePage() {
                       indicator={indicator}
                       communeElec={communeElec}
                       communeSocio={communeSocio}
+                      communeNames={communeNames}
                       selectedDeptCode={selectedDept?.code}
                     />
                   </div>

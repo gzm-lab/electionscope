@@ -13,6 +13,7 @@ interface ScatterPlotProps {
   indicator: Indicator;
   communeElec?: Record<string, any>;
   communeSocio?: Record<string, any>;
+  communeNames?: Record<string, string>;
   selectedDeptCode?: string | null;
 }
 
@@ -44,7 +45,7 @@ const INDICATOR_FORMAT: Record<Indicator, (v: number) => string> = {
   ensoleillement_h:     (v) => `${v.toFixed(0)} h`,
 };
 
-export default function ScatterPlot({ results, socioeco, selectedCandidate, indicator, communeElec, communeSocio, selectedDeptCode }: ScatterPlotProps) {
+export default function ScatterPlot({ results, socioeco, selectedCandidate, indicator, communeElec, communeSocio, communeNames, selectedDeptCode }: ScatterPlotProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -100,8 +101,9 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
         const score = cElec[candKey].pct;
         const valX = cSocio[indicator as keyof typeof cSocio] as number;
         // Pour les communes, on a le code, mais pas le nom exact dans elecCache/socioCache
-        // On passe juste le code, on affichera "Commune XXXXX" dans le tooltip
-        return { x: valX, y: score, name: "Commune " + code, code };
+        // On utilise communeNames s'il est dispo, sinon on affiche le code
+        const name = communeNames?.[code] || "Commune " + code;
+        return { x: valX, y: score, name, code };
       }).filter(Boolean) as { x: number; y: number; name: string; code: string }[];
     } else {
       // Mode Départements "classique" (fallback)
@@ -298,7 +300,7 @@ export default function ScatterPlot({ results, socioeco, selectedCandidate, indi
       .attr("fill", "rgba(255,255,255,0.25)").style("font-size", "8px")
       .text(pearsonSign);
 
-  }, [results, socioeco, selectedCandidate, indicator, communeElec, communeSocio, selectedDeptCode]);
+  }, [results, socioeco, selectedCandidate, indicator, communeElec, communeSocio, communeNames, selectedDeptCode]);
 
   return (
     <div className="relative w-full h-full">
